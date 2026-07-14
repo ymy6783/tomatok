@@ -39,16 +39,20 @@ function rowToNotice(row: NoticeRow): Notice {
   };
 }
 
-/** Supabase 연동 시 DB 우선, 없으면 로컬 JSON */
+/** Supabase 연동 시 DB 우선, 실패/미설정 시 로컬 JSON */
 export async function getNotices(): Promise<Notice[]> {
-  const supabase = getSupabase();
-  if (supabase) {
-    const { data, error } = await supabase
-      .from("notices")
-      .select("*")
-      .eq("is_published", true)
-      .order("published_at", { ascending: false });
-    if (!error && data) return (data as NoticeRow[]).map(rowToNotice);
+  try {
+    const supabase = getSupabase();
+    if (supabase) {
+      const { data, error } = await supabase
+        .from("notices")
+        .select("*")
+        .eq("is_published", true)
+        .order("published_at", { ascending: false });
+      if (!error && data) return (data as NoticeRow[]).map(rowToNotice);
+    }
+  } catch {
+    // fall through to local
   }
   return [...localNotices].sort((a, b) =>
     (b.date || "").localeCompare(a.date || "")
@@ -56,16 +60,19 @@ export async function getNotices(): Promise<Notice[]> {
 }
 
 export async function getNoticeById(id: string): Promise<Notice | null> {
-  const supabase = getSupabase();
-  if (supabase) {
-    const { data, error } = await supabase
-      .from("notices")
-      .select("*")
-      .eq("id", id)
-      .eq("is_published", true)
-      .maybeSingle();
-    if (!error && data) return rowToNotice(data as NoticeRow);
-    // UUID가 아니면 로컬 JSON id 일 수 있음
+  try {
+    const supabase = getSupabase();
+    if (supabase) {
+      const { data, error } = await supabase
+        .from("notices")
+        .select("*")
+        .eq("id", id)
+        .eq("is_published", true)
+        .maybeSingle();
+      if (!error && data) return rowToNotice(data as NoticeRow);
+    }
+  } catch {
+    // fall through
   }
   return localNotices.find((n) => n.id === id) ?? null;
 }

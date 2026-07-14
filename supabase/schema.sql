@@ -9,6 +9,13 @@ create table if not exists public.notices (
   full_title text,
   content text not null default '',
   content_html text,
+  title_en text,
+  content_en text not null default '',
+  content_html_en text,
+  category text not null default 'general'
+    check (category in (
+      'general', 'upgrade', 'shareholder', 'urgent'
+    )),
   links text[] not null default '{}',
   images text[] not null default '{}',
   published_at timestamptz not null default now(),
@@ -16,6 +23,10 @@ create table if not exists public.notices (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+-- Existing projects: run once
+-- alter table public.notices
+--   add column if not exists category text not null default 'general';
 
 create index if not exists notices_published_at_idx
   on public.notices (published_at desc);

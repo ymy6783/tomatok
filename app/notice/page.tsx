@@ -1,37 +1,43 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Suspense } from "react";
+import NoticeList from "@/components/NoticeList";
+import { parseLocale } from "@/lib/locale";
 import { getNotices } from "@/lib/notices";
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Notice",
+  title: "공지사항",
   description: "TomaTok 공지사항",
 };
 
-export default async function NoticeListPage() {
+export default async function NoticeListPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ lang?: string }>;
+}) {
+  const { lang } = await searchParams;
+  const locale = parseLocale(lang);
   const notices = await getNotices();
 
   return (
-    <div className="mx-auto max-w-5xl px-5 py-16">
-      <h1 className="font-[family-name:var(--font-display)] text-4xl font-bold text-white">
-        Notice
-      </h1>
-      <p className="mt-3 text-white/55">공식 공지 및 업데이트</p>
-
-      <ul className="mt-12 divide-y divide-white/10 border-y border-white/10">
-        {notices.map((n) => (
-          <li key={n.id}>
-            <Link
-              href={`/notice/${n.id}`}
-              className="flex flex-col gap-1 py-5 transition hover:bg-white/[0.03] sm:flex-row sm:items-baseline sm:gap-8"
-            >
-              <span className="w-28 shrink-0 text-sm text-white/40">{n.date ?? "—"}</span>
-              <span className="font-medium text-white/90">{n.title}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <div className="page-wash">
+      <div className="mx-auto w-full max-w-[980px] px-5 py-16 md:py-24">
+        <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--muted)]">
+          TomaTok
+        </p>
+        <h1 className="mt-2 text-[40px] font-semibold leading-[1.1] tracking-[-0.025em] text-[var(--foreground)] md:text-[56px]">
+          {locale === "en" ? "Notices" : "공지사항"}
+        </h1>
+        <p className="mt-4 max-w-[540px] text-[19px] leading-[1.38] tracking-[-0.01em] text-[var(--muted)] md:text-[21px]">
+          {locale === "en"
+            ? "Latest updates from TomaTok."
+            : "TomaTok의 최신 소식과 업데이트를 확인하세요."}
+        </p>
+        <Suspense fallback={null}>
+          <NoticeList notices={notices} locale={locale} />
+        </Suspense>
+      </div>
     </div>
   );
 }

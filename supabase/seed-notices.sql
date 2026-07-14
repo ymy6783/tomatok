@@ -4438,8 +4438,8 @@ TomaTok platform participants are considered to have acknowledged and agreed to 
 
 INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
 VALUES (
-  '2026.02.10 토마콩즈 T2E 서비스 리뉴얼 및 토마톡 앱 내 통합 안내 | Notice: TomaBeans T2E Service Renewal and Availability within the TomaTok App',
-  '2026.02.10 토마콩즈 T2E 서비스 리뉴얼 및 토마톡 앱 내 통합 안내 | Notice: TomaBeans T2E Service Renewal and Availability within the TomaTok App',
+  '토마콩즈 T2E 서비스 리뉴얼 및 토마톡 앱 내 통합 안내 | Notice: TomaBeans T2E Service Renewal and Availability within the TomaTok App',
+  '2026.02.10 | 토마콩즈 T2E 서비스 리뉴얼 및 토마톡 앱 내 통합 안내 | Notice: TomaBeans T2E Service Renewal and Availability within the TomaTok App',
   '안녕하세요, TomaTok 이용자 여러분!
 토마콩즈 T2E 서비스 리뉴얼 및 토마톡 앱 내 통합 예정에 대한 안내를 드립니다.
 
@@ -4528,7 +4528,7 @@ TomaTok Team',
 <p><span style="color: #ffffff;">TomaTok Team</span></p>',
   ARRAY[]::text[],
   ARRAY[]::text[],
-  now(),
+  '2026-02-10T00:00:00+09:00'::timestamptz,
   true
 );
 

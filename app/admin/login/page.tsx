@@ -29,10 +29,10 @@ export default function AdminLoginPage() {
 
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-5 py-16">
-      <h1 className="font-[family-name:var(--font-display)] text-3xl font-bold text-white">
+      <h1 className="text-3xl font-bold text-[var(--foreground)]">
         Admin
       </h1>
-      <p className="mt-2 text-sm text-white/50">공지 작성용 로그인</p>
+      <p className="mt-2 text-sm text-[var(--muted)]">공지 작성용 로그인</p>
       <form onSubmit={onSubmit} className="mt-8 space-y-4">
         <input
           type="email"
@@ -40,7 +40,7 @@ export default function AdminLoginPage() {
           placeholder="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-white outline-none focus:border-[var(--brand)]"
+          className="w-full rounded-[10px] border border-[var(--line)] bg-white px-4 py-3 text-[var(--foreground)] outline-none focus:border-[var(--foreground)]"
         />
         <input
           type="password"
@@ -48,17 +48,17 @@ export default function AdminLoginPage() {
           placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-white outline-none focus:border-[var(--brand)]"
+          className="w-full rounded-[10px] border border-[var(--line)] bg-white px-4 py-3 text-[var(--foreground)] outline-none focus:border-[var(--foreground)]"
         />
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-full bg-[var(--accent)] py-3 text-sm font-semibold text-white disabled:opacity-60"
+          className="w-full rounded-[10px] bg-[var(--accent)] py-3 text-sm font-medium text-white disabled:opacity-60"
         >
           {loading ? "…" : "로그인"}
         </button>
       </form>
-      {msg && <p className="mt-4 text-sm text-red-400">{msg}</p>}
+      {msg && <p className="mt-4 text-sm text-[var(--accent)]">{msg}</p>}
     </div>
   );
 }

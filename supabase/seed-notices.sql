@@ -1,4 +1,4 @@
--- Run AFTER schema.sql in Supabase SQL Editor
+-- Run AFTER schema.sql
 truncate public.notices;
 
 INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
@@ -181,8 +181,8 @@ VALUES (
   'TOTT 스마트 컨트랙트 CertiK 감사완료 안내 | TOTT SmartContract CertiK Audit Completion Announcement',
   '2026.04.20 | TOTT 스마트 컨트랙트 CertiK 감사완료 안내 | TOTT SmartContract CertiK Audit Completion Announcement',
   'CertiK 보고서.pdf',
-  '<p><a href="https://tomatok.io/wp-content/uploads/2026/04/CertiK-최종보고서.pdf" data-et-target-link="_blank" rel="noopener">CertiK 보고서.pdf</a></p>',
-  ARRAY['https://tomatok.io/wp-content/uploads/2026/04/CertiK-최종보고서.pdf'],
+  '<p><a href="/notices/CertiK-최종보고서.pdf" data-et-target-link="_blank" rel="noopener">CertiK 보고서.pdf</a></p>',
+  ARRAY['/notices/CertiK-최종보고서.pdf'],
   ARRAY[]::text[],
   '2026-04-20T00:00:00+09:00'::timestamptz,
   true
@@ -257,9 +257,9 @@ VALUES (
   '토마톡 임시 이사회 의사록',
   '2026.02.26 | 토마톡 임시 이사회 의사록',
   '',
-  '<p><img src="https://tomatok.io/wp-content/uploads/2026/02/임시-이사회-의사록-26.02.25_1.png" width="612" height="792" alt="" class="wp-image-436 alignnone size-full" /></p>',
+  '<p><img src="/notices/임시-이사회-의사록-26.02.25_1.png" width="612" height="792" alt="" class="wp-image-436 alignnone size-full" /></p>',
   ARRAY[]::text[],
-  ARRAY['https://tomatok.io/wp-content/uploads/2026/02/임시-이사회-의사록-26.02.25_1.png'],
+  ARRAY['/notices/임시-이사회-의사록-26.02.25_1.png'],
   '2026-02-26T00:00:00+09:00'::timestamptz,
   true
 );
@@ -269,9 +269,9 @@ VALUES (
   '토마톡 이사회 임시 소집 안내',
   '2026.02.24 | 토마톡 이사회 임시 소집 안내',
   '',
-  '<p><img src="https://tomatok.io/wp-content/uploads/2026/02/이사회-임시-소집-안내-26.02.24001-724x1024.png" width="724" height="1024" alt="" class="wp-image-432 alignnone size-large" /></p>',
+  '<p><img src="/notices/이사회-임시-소집-안내-26.02.24001-724x1024.png" width="724" height="1024" alt="" class="wp-image-432 alignnone size-large" /></p>',
   ARRAY[]::text[],
-  ARRAY['https://tomatok.io/wp-content/uploads/2026/02/이사회-임시-소집-안내-26.02.24001-724x1024.png'],
+  ARRAY['/notices/이사회-임시-소집-안내-26.02.24001-724x1024.png'],
   '2026-02-24T00:00:00+09:00'::timestamptz,
   true
 );
@@ -426,7 +426,7 @@ Investment decisions are the sole responsibility of the user',
   '<div class="tott-wrap">
 <div class="tott-card">
 <div class="tott-header">
-<p><img class="tott-hero-img" src="https://tomatok.io/wp-content/uploads/2026/01/tott_fire.png" alt="TOTT 안내 이미지" loading="lazy" width="158" height="172" /></p>
+<p><img class="tott-hero-img" src="/notices/tott_fire.png" alt="TOTT 안내 이미지" loading="lazy" width="158" height="172" /></p>
 <div class="tott-title">TOTT 소각 안내</div>
 <p class="tott-subtitle">총 3억 TOTT 공급량 조정(소각)</p>
 </div>
@@ -461,7 +461,7 @@ Investment decisions are the sole responsibility of the user',
 </div>
 <div class="tott-row">
 <div class="tott-label"><span class="tott-dot">•</span>검증 방법</div>
-<div class="tott-value">Burn 주소<br /><a class="tott-tx" href="TX_LINK" data-et-target-link="_blank" rel="noopener noreferrer">트랜잭션 해시(TxID): TX_HASH</a><!-- ✅ 트랜잭션 해시 "밑" 이미지 1개 추가 --><br /><img class="tott-proof-img" src="https://tomatok.io/wp-content/uploads/2026/01/tott_burn_capture.png" alt="트랜잭션 검증 이미지" loading="lazy" /></div>
+<div class="tott-value">Burn 주소<br /><a class="tott-tx" href="TX_LINK" data-et-target-link="_blank" rel="noopener noreferrer">트랜잭션 해시(TxID): TX_HASH</a><!-- ✅ 트랜잭션 해시 "밑" 이미지 1개 추가 --><br /><img class="tott-proof-img" src="/notices/tott_burn_capture.png" alt="트랜잭션 검증 이미지" loading="lazy" /></div>
 </div>
 <div class="tott-row">
 <div class="tott-label"><span class="tott-dot">•</span>소각 후 영향</div>
@@ -477,7 +477,7 @@ Investment decisions are the sole responsibility of the user',
 <div class="tott-wrap">
 <div class="tott-card">
 <div class="tott-header">
-<p><img class="tott-hero-img" src="https://tomatok.io/wp-content/uploads/2026/01/tott_fire.png" alt="TOTT Burn Notice Image" loading="lazy" width="158" height="172" /></p>
+<p><img class="tott-hero-img" src="/notices/tott_fire.png" alt="TOTT Burn Notice Image" loading="lazy" width="158" height="172" /></p>
 <div class="tott-title">TOTT Burn Notice</div>
 <p class="tott-subtitle">Supply Adjustment: 300 Million TOTT Burn</p>
 </div>
@@ -512,7 +512,7 @@ Investment decisions are the sole responsibility of the user',
 </div>
 <div class="tott-row">
 <div class="tott-label"><span class="tott-dot">•</span>Verification</div>
-<div class="tott-value">Burn address<a class="tott-tx" href="TX_LINK" data-et-target-link="_blank" rel="noopener noreferrer"><br />Transaction Hash (TxID): TX_HASH</a><br /><img class="tott-proof-img" src="https://tomatok.io/wp-content/uploads/2026/01/tott_burn_capture.png" alt="Transaction Verification Image" loading="lazy" /></div>
+<div class="tott-value">Burn address<a class="tott-tx" href="TX_LINK" data-et-target-link="_blank" rel="noopener noreferrer"><br />Transaction Hash (TxID): TX_HASH</a><br /><img class="tott-proof-img" src="/notices/tott_burn_capture.png" alt="Transaction Verification Image" loading="lazy" /></div>
 </div>
 <div class="tott-row">
 <div class="tott-label"><span class="tott-dot">•</span>Post-Burn Impact</div>
@@ -525,8 +525,8 @@ Investment decisions are the sole responsibility of the user',
 </div>
 </div>
 </div>',
-  ARRAY['TX_LINK','TX_LINK'],
-  ARRAY['https://tomatok.io/wp-content/uploads/2026/01/tott_fire.png','https://tomatok.io/wp-content/uploads/2026/01/tott_burn_capture.png','https://tomatok.io/wp-content/uploads/2026/01/tott_fire.png','https://tomatok.io/wp-content/uploads/2026/01/tott_burn_capture.png'],
+  ARRAY[]::text[],
+  ARRAY['/notices/tott_fire.png','/notices/tott_burn_capture.png'],
   '2026-01-20T00:00:00+09:00'::timestamptz,
   true
 );
@@ -607,10 +607,10 @@ VALUES (
 <p><span style="color: #ffffff;">■ 출석 현황</span></p>
 <p><span style="color: #ffffff;">총 서울 주주 수: 193명</span><br /><span style="color: #ffffff;">출석 주주 수: 138명 (과반 이상 출석으로 총회 적법 성립)</span></p>
 <p><span style="color: #ffffff;">■ 의결 사항</span><br /><span style="color: #ffffff;">제1호 의안: 토마톡 스테이킹풀 TOTT 지급 관련 변경의 건 ▶ 만장일치 가결</span><br /><span style="color: #ffffff;">제2호 의안: 토마콩즈 NFT 지급의 건 ▶ 만장일치 가결</span><br /><span style="color: #ffffff;">제3호 의안: 배당금 분배 방법 및 대우, 혜택 안내의 건 ▶ 만장일치 가결</span><br /><span style="color: #ffffff;">본 임시주주총회에서 상정된 모든 안건이 만장일치로 가결되었음을 알려드리며, 세부 내용은 추후 개별 안내 예정입니다.</span><br /><span style="color: #ffffff;">니즈퍼샌드 대표이사 김남진</span></p>
-<p><img src="https://tomatok.io/wp-content/uploads/2025/11/KakaoTalk_20251105_151641119.png" width="967" height="1253" alt="" class="wp-image-384 alignnone size-full" /></p>
+<p><img src="/notices/KakaoTalk_20251105_151641119.png" width="967" height="1253" alt="" class="wp-image-384 alignnone size-full" /></p>
 <p class="p3">',
   ARRAY[]::text[],
-  ARRAY['https://tomatok.io/wp-content/uploads/2025/11/KakaoTalk_20251105_151641119.png'],
+  ARRAY['/notices/KakaoTalk_20251105_151641119.png'],
   '2025-11-05T00:00:00+09:00'::timestamptz,
   true
 );
@@ -645,10 +645,10 @@ GRC역삼모임공간 지하 1층 메타아트홀
 <p class="whitespace-normal break-words"><span style="color: #ffffff;"><strong>■ 회의목적사항</strong></span><br /><span style="color: #ffffff;">가. 참석 대상: 서울 영업 본사 주주분들만 해당</span><br /><span style="color: #ffffff;">나. TOTT 정책 변경의 건</span><br /><span style="color: #ffffff;">다. 스마트컨트랙트 진입 조건 안내</span><br /><span style="color: #ffffff;">라. 지분 분배 방법 및 대우, 혜택 안내</span></p>
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">니즈퍼샌드</span><br /><span style="color: #ffffff;">대표이사 김남진</span></p>
 <p> </p>
-<p><img src="https://tomatok.io/wp-content/uploads/2025/10/KakaoTalk_Photo_2025-10-24-10-12-10.png" width="879" height="1244" alt="" class="wp-image-377 alignnone size-full" /></p>
+<p><img src="/notices/KakaoTalk_Photo_2025-10-24-10-12-10.png" width="879" height="1244" alt="" class="wp-image-377 alignnone size-full" /></p>
 <p class="p3">',
   ARRAY[]::text[],
-  ARRAY['https://tomatok.io/wp-content/uploads/2025/10/KakaoTalk_Photo_2025-10-24-10-12-10.png'],
+  ARRAY['/notices/KakaoTalk_Photo_2025-10-24-10-12-10.png'],
   '2025-10-24T00:00:00+09:00'::timestamptz,
   true
 );
@@ -681,10 +681,10 @@ VALUES (
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">감사합니다.</span></p>
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">2025년 10월 23일</span><br /><span style="color: #ffffff;">주식회사 니즈퍼샌드</span><br /><span style="color: #ffffff;">대표이사 김남진</span></p>
 <p> </p>
-<p class="p3"><a href="https://tomatok.io/kakaotalk_photo_2025-10-23-15-54-31/"><img src="https://tomatok.io/wp-content/uploads/2025/10/KakaoTalk_Photo_2025-10-23-15-54-31.png" width="919" height="1300" alt="" class="wp-image-371 alignnone size-full" /></a></p>
+<p class="p3"><a href="/notices/kakaotalk_photo_2025-10-23-15-54-31"><img src="/notices/KakaoTalk_Photo_2025-10-23-15-54-31.png" width="919" height="1300" alt="" class="wp-image-371 alignnone size-full" /></a></p>
 <p class="p3">',
-  ARRAY['https://tomatok.io/kakaotalk_photo_2025-10-23-15-54-31/'],
-  ARRAY['https://tomatok.io/wp-content/uploads/2025/10/KakaoTalk_Photo_2025-10-23-15-54-31.png'],
+  ARRAY['/notices/KakaoTalk_Photo_2025-10-23-15-54-31.png'],
+  ARRAY['/notices/KakaoTalk_Photo_2025-10-23-15-54-31.png'],
   '2025-10-23T00:00:00+09:00'::timestamptz,
   true
 );

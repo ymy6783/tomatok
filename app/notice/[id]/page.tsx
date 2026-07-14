@@ -62,15 +62,31 @@ export default async function NoticeDetailPage({
 
       {notice.images.length > 0 && (
         <div className="mt-8 space-y-4">
-          {notice.images.map((src) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              key={src}
-              src={src}
-              alt=""
-              className="w-full rounded-xl border border-white/10"
-            />
-          ))}
+          {notice.images.map((src) => {
+            const isImage = /\.(png|jpe?g|gif|webp|svg)(\?|$)/i.test(src);
+            if (!isImage) {
+              return (
+                <a
+                  key={src}
+                  href={src}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block rounded-xl border border-white/10 px-4 py-3 text-[var(--brand)] hover:bg-white/5"
+                >
+                  첨부 파일 열기
+                </a>
+              );
+            }
+            return (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                key={src}
+                src={src}
+                alt=""
+                className="w-full rounded-xl border border-white/10"
+              />
+            );
+          })}
         </div>
       )}
 

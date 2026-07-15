@@ -22,14 +22,14 @@ export default async function NoticeListPage({
 
   return (
     <div className="page-wash">
-      <div className="mx-auto w-full max-w-[980px] px-5 py-16 md:py-24">
+      <div className="mx-auto w-full max-w-[var(--content)] px-5 py-14 md:px-10 md:py-20">
         <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-[var(--muted)]">
           TomaTok
         </p>
-        <h1 className="mt-2 text-[40px] font-semibold leading-[1.1] tracking-[-0.025em] text-[var(--foreground)] md:text-[56px]">
+        <h1 className="mt-2 text-[28px] font-semibold leading-[1.15] tracking-[-0.02em] text-[var(--foreground)] md:text-[34px]">
           {locale === "en" ? "Notices" : "공지사항"}
         </h1>
-        <p className="mt-4 max-w-[540px] text-[19px] leading-[1.38] tracking-[-0.01em] text-[var(--muted)] md:text-[21px]">
+        <p className="mt-3 max-w-[560px] text-[15px] leading-[1.5] tracking-[-0.01em] text-[var(--muted)] md:text-[17px]">
           {locale === "en"
             ? "Latest updates from TomaTok."
             : "TomaTok의 최신 소식과 업데이트를 확인하세요."}

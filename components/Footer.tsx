@@ -11,7 +11,7 @@ function FooterInner() {
 
   return (
     <footer className="mt-auto border-t border-[var(--line-soft)] bg-[var(--band)]">
-      <div className="mx-auto w-full max-w-[980px] px-5 py-14 md:py-16">
+      <div className="mx-auto w-full max-w-[var(--content)] px-5 py-14 md:px-10 md:py-16">
         <p className="text-[21px] font-semibold tracking-[-0.02em] text-[var(--foreground)]">
           Toma<span className="text-[var(--accent)]">Tok</span>
         </p>
@@ -48,7 +48,7 @@ export default function Footer() {
     <Suspense
       fallback={
         <footer className="mt-auto border-t border-[var(--line-soft)] bg-[var(--band)]">
-          <div className="mx-auto w-full max-w-[980px] px-5 py-14">
+          <div className="mx-auto w-full max-w-[var(--content)] px-5 py-14 md:px-10">
             <p className="text-[21px] font-semibold tracking-[-0.02em] text-[var(--foreground)]">
               Toma<span className="text-[var(--accent)]">Tok</span>
             </p>

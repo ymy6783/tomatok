@@ -1,29 +1,27 @@
 import type { Metadata } from "next";
-import { Noto_Sans_KR } from "next/font/google";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { Red_Hat_Display } from "next/font/google";
 import "./globals.css";
 
-const body = Noto_Sans_KR({
-  variable: "--font-body",
+const redHatDisplay = Red_Hat_Display({
+  variable: "--font-display",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://tomatok.io"),
   title: {
-    default: "TomaTok",
-    template: "%s | TomaTok",
+    default: "TOMATOK · Talk Beyond Language",
+    template: "%s | TOMATOK",
   },
   description:
-    "TomaTok 공식 사이트입니다. 공지사항과 화이트페이퍼를 확인하세요.",
+    "번역, 지갑, AI, 리워드가 하나로 연결된 글로벌 메신저 TOMATOK.",
   openGraph: {
-    title: "TomaTok",
+    title: "TOMATOK · Talk Beyond Language",
     description:
-      "TomaTok 공식 사이트입니다. 공지사항과 화이트페이퍼를 확인하세요.",
+      "번역, 지갑, AI, 리워드가 하나로 연결된 글로벌 메신저 TOMATOK.",
     url: "/",
-    siteName: "TomaTok",
+    siteName: "TOMATOK",
     locale: "ko_KR",
   },
 };
@@ -35,11 +33,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${body.variable} flex min-h-screen flex-col antialiased`}>
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-      </body>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+        />
+      </head>
+      <body className={`${redHatDisplay.variable} antialiased`}>{children}</body>
     </html>
   );
 }

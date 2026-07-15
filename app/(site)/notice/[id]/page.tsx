@@ -66,7 +66,7 @@ export default async function NoticeDetailPage({
 
   return (
     <article className="page-wash">
-      <div className="mx-auto w-full max-w-[692px] px-5 py-14 md:py-20">
+      <div className="mx-auto w-full max-w-[var(--article)] px-5 py-12 md:px-10 md:py-16">
         <Link
           href={withLocale("/notice", effectiveLocale)}
           className="inline-flex items-center gap-1 text-[14px] text-[var(--link)] hover:underline"
@@ -75,7 +75,7 @@ export default async function NoticeDetailPage({
           {effectiveLocale === "en" ? "Notices" : "공지사항"}
         </Link>
 
-        <header className="mt-8 border-b border-[var(--line-soft)] pb-10 md:mt-10 md:pb-12">
+        <header className="mt-6 border-b border-[var(--line-soft)] pb-8 md:mt-8 md:pb-10">
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] text-[var(--muted)]">
             {notice.category && (
               <span>{categoryLabel(notice.category, effectiveLocale)}</span>
@@ -87,7 +87,7 @@ export default async function NoticeDetailPage({
             )}
             <span className="tabular-nums">{notice.date ?? ""}</span>
           </div>
-          <h1 className="mt-3 text-[32px] font-semibold leading-[1.125] tracking-[-0.022em] text-[var(--foreground)] md:mt-4 md:text-[40px]">
+          <h1 className="mt-2 text-[24px] font-semibold leading-[1.25] tracking-[-0.02em] text-[var(--foreground)] md:mt-3 md:text-[28px]">
             {localizedTitle(notice, effectiveLocale)}
           </h1>
           {locale === "en" && !noticeHasLocale(notice, "en") && (
@@ -151,13 +151,13 @@ export default async function NoticeDetailPage({
             className="notice-body mt-10 md:mt-12"
             dangerouslySetInnerHTML={{ __html: bodyHtml }}
           />
-        ) : (
+        ) : notice.images.length === 0 && notice.links.length === 0 ? (
           <p className="mt-10 text-[17px] text-[var(--muted)] md:mt-12">
             {effectiveLocale === "en"
-              ? "This notice has attachment/image content only."
-              : "본문이 첨부 파일/이미지로만 제공된 공지입니다."}
+              ? "This notice has no content yet."
+              : "본문이 없습니다."}
           </p>
-        )}
+        ) : null}
 
         <NoticeAdminActions noticeId={notice.id} locale={effectiveLocale} />
       </div>

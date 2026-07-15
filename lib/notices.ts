@@ -108,13 +108,36 @@ function normalizeLocal(n: Notice): Notice {
   };
 }
 
+function stripToPlain(htmlOrText: string): string {
+  return (htmlOrText || "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/** No meaningful written body — images/links only (language-agnostic). */
+export function isMediaOnlyNotice(n: Notice): boolean {
+  const hasMedia =
+    (n.images?.length ?? 0) > 0 || (n.links?.length ?? 0) > 0;
+  if (!hasMedia) return false;
+  const koBody = stripToPlain(n.content_html || "") || stripToPlain(n.content || "");
+  const enBody =
+    stripToPlain(n.content_html_en || "") || stripToPlain(n.content_en || "");
+  return !koBody && !enBody;
+}
+
 export function noticeHasLocale(n: Notice, locale: Locale): boolean {
   if (locale === "ko") return true;
-  return Boolean(
+  if (
     n.title_en?.trim() ||
-      n.content_html_en?.trim() ||
-      n.content_en?.trim()
-  );
+    n.content_html_en?.trim() ||
+    n.content_en?.trim()
+  ) {
+    return true;
+  }
+  // Image/attachment-only notices apply to every locale
+  return isMediaOnlyNotice(n);
 }
 
 export function localizedTitle(n: Notice, locale: Locale): string {

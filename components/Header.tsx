@@ -36,7 +36,7 @@ function HeaderInner() {
 
   return (
     <header className="sticky top-0 z-40 bg-[var(--surface)] backdrop-blur-[20px] backdrop-saturate-[180%]">
-      <div className="mx-auto flex h-12 w-full max-w-[980px] items-center justify-between gap-4 px-5 md:h-[44px]">
+      <div className="mx-auto flex h-12 w-full max-w-[var(--content)] items-center justify-between gap-4 px-5 md:h-[44px] md:px-10">
         <Link
           href={withLocale("/", locale)}
           className="shrink-0 text-[19px] font-semibold tracking-[-0.02em] text-[var(--foreground)]"
@@ -86,7 +86,7 @@ export default function Header() {
     <Suspense
       fallback={
         <header className="sticky top-0 z-40 bg-[var(--surface)] backdrop-blur-[20px]">
-          <div className="mx-auto flex h-12 w-full max-w-[980px] items-center px-5 md:h-[44px]">
+          <div className="mx-auto flex h-12 w-full max-w-[var(--content)] items-center px-5 md:h-[44px] md:px-10">
             <span className="text-[19px] font-semibold tracking-[-0.02em] text-[var(--foreground)]">
               Toma<span className="text-[var(--accent)]">Tok</span>
             </span>

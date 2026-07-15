@@ -118,7 +118,7 @@ export default function NoticeList({
                       )}
                       <span className="tabular-nums">{n.date ?? ""}</span>
                     </div>
-                    <p className="mt-1.5 text-[19px] font-semibold leading-[1.25] tracking-[-0.015em] text-[var(--foreground)] md:text-[21px]">
+                    <p className="mt-1.5 text-[17px] font-semibold leading-[1.3] tracking-[-0.015em] text-[var(--foreground)] md:text-[18px]">
                       {localizedTitle(n, locale)}
                     </p>
                   </div>

@@ -1,10 +1,12 @@
 import noticesData from "@/data/notices.json";
 import { getSupabase } from "@/lib/supabaseClient";
+import { isSupabaseNoticeId, noticeSlugToUuid } from "@/lib/noticeAdmin";
 import type { NoticeCategoryId } from "@/lib/noticeCategories";
 import type { Locale } from "@/lib/locale";
 
 export type Notice = {
   id: string;
+  slug?: string | null;
   date: string | null;
   title: string;
   title_en?: string | null;
@@ -20,6 +22,7 @@ export type Notice = {
 
 type NoticeRow = {
   id: string;
+  slug?: string | null;
   title: string;
   title_en?: string | null;
   full_title: string | null;
@@ -63,6 +66,7 @@ function rowToNotice(row: NoticeRow): Notice {
   const hasSeparateEn = Boolean(row.content_html_en?.trim());
   return {
     id: row.id,
+    slug: row.slug || null,
     date: row.published_at ? row.published_at.slice(0, 10) : null,
     title: row.title,
     title_en: row.title_en || null,
@@ -158,13 +162,35 @@ export async function getNoticeById(id: string): Promise<Notice | null> {
   try {
     const supabase = getSupabase();
     if (supabase) {
-      const { data, error } = await supabase
+      const byId = await supabase
         .from("notices")
         .select("*")
         .eq("id", id)
         .eq("is_published", true)
         .maybeSingle();
-      if (!error && data) return rowToNotice(data as NoticeRow);
+      if (!byId.error && byId.data) return rowToNotice(byId.data as NoticeRow);
+
+      // Old WP-style slug in URL → deterministic UUID
+      if (!isSupabaseNoticeId(id)) {
+        const mapped = noticeSlugToUuid(id);
+        const byMapped = await supabase
+          .from("notices")
+          .select("*")
+          .eq("id", mapped)
+          .eq("is_published", true)
+          .maybeSingle();
+        if (!byMapped.error && byMapped.data)
+          return rowToNotice(byMapped.data as NoticeRow);
+      }
+
+      const bySlug = await supabase
+        .from("notices")
+        .select("*")
+        .eq("slug", id)
+        .eq("is_published", true)
+        .maybeSingle();
+      if (!bySlug.error && bySlug.data)
+        return rowToNotice(bySlug.data as NoticeRow);
     }
   } catch {
     // fall through

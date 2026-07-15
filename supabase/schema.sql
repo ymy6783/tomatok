@@ -18,11 +18,16 @@ create table if not exists public.notices (
     )),
   links text[] not null default '{}',
   images text[] not null default '{}',
+  slug text,
   published_at timestamptz not null default now(),
   is_published boolean not null default true,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+create unique index if not exists notices_slug_uidx
+  on public.notices (slug)
+  where slug is not null;
 
 -- Existing projects: run once
 -- alter table public.notices

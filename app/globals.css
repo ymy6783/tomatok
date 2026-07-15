@@ -85,11 +85,27 @@ a {
   animation-delay: 0.24s;
 }
 
+@keyframes feature-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.feature-fade-up {
+  animation: feature-fade-up 0.45s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .anim-rise,
   .anim-rise-delay-1,
   .anim-rise-delay-2,
-  .anim-rise-delay-3 {
+  .anim-rise-delay-3,
+  .feature-fade-up {
     animation: none;
   }
 }

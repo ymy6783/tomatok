@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" fill="none">
+  <rect width="390" height="844" rx="48" fill="#1d1d1f"/>
+  <rect x="10" y="10" width="370" height="824" rx="40" fill="#f5f5f7"/>
+  <rect x="140" y="22" width="110" height="28" rx="14" fill="#1d1d1f"/>
+  <text x="36" y="120" fill="#0066cc" font-family="system-ui,sans-serif" font-size="14" font-weight="600">ECOSYSTEM</text>
+  <text x="36" y="168" fill="#1d1d1f" font-family="system-ui,sans-serif" font-size="30" font-weight="700">화이트페이퍼</text>
+  <text x="36" y="202" fill="#86868b" font-family="system-ui,sans-serif" font-size="15">비전과 로드맵을 확인하세요</text>
+  <rect x="28" y="240" width="334" height="220" rx="20" fill="#fff"/>
+  <rect x="52" y="270" width="180" height="14" rx="7" fill="#1d1d1f" opacity="0.9"/>
+  <rect x="52" y="300" width="286" height="10" rx="5" fill="#d2d2d7"/>
+  <rect x="52" y="322" width="260" height="10" rx="5" fill="#d2d2d7"/>
+  <rect x="52" y="344" width="274" height="10" rx="5" fill="#d2d2d7"/>
+  <rect x="52" y="380" width="120" height="36" rx="18" fill="#0071e3"/>
+  <rect x="28" y="484" width="160" height="120" rx="18" fill="#fff"/>
+  <rect x="202" y="484" width="160" height="120" rx="18" fill="#fff"/>
+  <circle cx="108" cy="534" r="22" fill="#e11d2e" opacity="0.15"/>
+  <circle cx="282" cy="534" r="22" fill="#0071e3" opacity="0.15"/>
+  <rect x="68" y="568" width="80" height="10" rx="5" fill="#d2d2d7"/>
+  <rect x="242" y="568" width="80" height="10" rx="5" fill="#d2d2d7"/>
+  <rect x="120" y="780" width="150" height="6" rx="3" fill="#1d1d1f" opacity="0.2"/>
+</svg>

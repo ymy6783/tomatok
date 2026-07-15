@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" fill="none">
+  <rect width="390" height="844" rx="48" fill="#1d1d1f"/>
+  <rect x="10" y="10" width="370" height="824" rx="40" fill="#ffffff"/>
+  <rect x="140" y="22" width="110" height="28" rx="14" fill="#1d1d1f"/>
+  <circle cx="195" cy="220" r="56" fill="#e11d2e" opacity="0.12"/>
+  <circle cx="195" cy="220" r="36" fill="#e11d2e"/>
+  <text x="195" y="228" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="18" font-weight="700">T</text>
+  <text x="195" y="310" text-anchor="middle" fill="#1d1d1f" font-family="system-ui,sans-serif" font-size="28" font-weight="700">지갑 연결</text>
+  <text x="195" y="348" text-anchor="middle" fill="#86868b" font-family="system-ui,sans-serif" font-size="15">안전하게 자산을 관리하세요</text>
+  <rect x="48" y="390" width="294" height="56" rx="28" fill="#0071e3"/>
+  <text x="195" y="424" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="16" font-weight="600">Connect Wallet</text>
+  <rect x="48" y="466" width="294" height="72" rx="16" fill="#f5f5f7"/>
+  <rect x="68" y="490" width="120" height="12" rx="6" fill="#d2d2d7"/>
+  <rect x="68" y="512" width="180" height="10" rx="5" fill="#e8e8ed"/>
+  <rect x="120" y="780" width="150" height="6" rx="3" fill="#1d1d1f" opacity="0.2"/>
+</svg>

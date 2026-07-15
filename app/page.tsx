@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PhoneFeaturesSection from "@/components/PhoneFeaturesSection";
 import {
   getNotices,
   localizedTitle,
@@ -58,6 +59,8 @@ export default async function HomePage({
           </div>
         </div>
       </section>
+
+      <PhoneFeaturesSection locale={locale} />
 
       <section className="bg-[var(--band)]">
         <div className="mx-auto w-full max-w-[980px] px-5 py-24 md:py-28">

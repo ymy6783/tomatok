@@ -1,9 +1,17 @@
--- Run AFTER schema.sql
+-- Auto-generated from data/notices.json
+-- Images: https://tomatok.io/notices/...
+-- Run after schema.sql + add-i18n.sql + add-category.sql + add-slug.sql
 truncate public.notices;
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
-  '[공지] 토마톡 스테이킹 연간 보상률(APR) 유예기간 적용 안내 [Notice] Grace Period for Tomatalk Staking APR Adjustment',
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '3c3f2f2c-abfb-5b58-a3df-ff4626c145e3',
+  '20260626-00',
+  '[공지] 토마톡 스테이킹 연간 보상률(APR) 유예기간 적용 안내',
+  '[Notice] Grace Period for Tomatalk Staking APR Adjustment',
   '2026.06.26 | [공지] 토마톡 스테이킹 연간 보상률(APR) 유예기간 적용 안내 [Notice] Grace Period for Tomatalk Staking APR Adjustment',
   '안녕하세요, 토마톡 팀입니다.
 
@@ -65,6 +73,7 @@ Thank you.
 
 Sincerely,
 The Tomatalk Team',
+  'Hello, this is the Tomatalk Team. We sincerely thank all members for using Tomatalk and for your continued interest and support. Tomatalk continuously monitors market conditions in order to build a stable and sustainable token economy and preserve long-term value. Accordingly, to ensure stable service operation going forward, we would like to inform you of the grace period for the adjustment of the staking Annual Percentage Rate (APR) as follows. 1. Main Changes Current APR: 4.0% per year Adjusted APR: 2.0% per year 2. Grace Period Schedule Period: June 30, 2026 ~ July 15, 2026 Grace Period: 15 days 3. Important Notes Rewards that have already been paid for amounts staked before the APR adjustment will not be affected. Members who wish to unstake or move their assets are advised to do so before the adjustment takes effect. The Tomatalk Team will continue to do our best to enhance the value of our members’ assets and provide a safe trading environment. Thank you. Sincerely, The Tomatalk Team',
   '<p class="p1"><span style="color: #ffffff;">안녕하세요, 토마톡 팀입니다.</span></p>
 <p class="p1"><span style="color: #ffffff;">언제나 토마톡 서비스를 이용해 주시고 많은 관심과 성원을 보내주시는 회원 여러분께 진심으로 감사드립니다.</span></p>
 <p class="p1"><span style="color: #ffffff;">토마톡은 안정적이고 지속 가능한 토큰 이코노미 생태계를 구축하고, 장기적인 가치를 보존하기 위해 지속적으로 시장 상황을 모니터링하고 있습니다.</span></p>
@@ -84,9 +93,8 @@ The Tomatalk Team',
 <p class="p1"><span style="color: #ffffff;">스테이킹 해제 및 자산 이동을 원하시는 회원님께서는 변경 적용 시점 전에 진행해 주시기 바랍니다.</span></p>
 <p class="p1"><span style="color: #ffffff;">토마톡 팀은 앞으로도 회원 여러분의 자산 가치 제고와 안전한 거래 환경 제공을 위해 최선을 다하겠습니다.</span></p>
 <p class="p1"><span style="color: #ffffff;">감사합니다.</span></p>
-<p class="p3"><span style="color: #ffffff;">토마톡 팀 드림</span></p>
-<hr />
-<p class="p1"><span style="color: #ffffff;">Hello, this is the Tomatalk Team.</span></p>
+<p class="p3"><span style="color: #ffffff;">토마톡 팀 드림</span></p>',
+  '<p class="p1"><span style="color: #ffffff;">Hello, this is the Tomatalk Team.</span></p>
 <p class="p1"><span style="color: #ffffff;">We sincerely thank all members for using Tomatalk and for your continued interest and support.</span></p>
 <p class="p1"><span style="color: #ffffff;">Tomatalk continuously monitors market conditions in order to build a stable and sustainable token economy and preserve long-term value.</span></p>
 <p class="p1"><span style="color: #ffffff;">Accordingly, to ensure stable service operation going forward, we would like to inform you of the grace period for the adjustment of the staking Annual Percentage Rate (APR) as follows.</span></p>
@@ -106,15 +114,22 @@ The Tomatalk Team',
 <p class="p1"><span style="color: #ffffff;">The Tomatalk Team will continue to do our best to enhance the value of our members’ assets and provide a safe trading environment.</span></p>
 <p class="p1"><span style="color: #ffffff;">Thank you.</span></p>
 <p class="p1"><span style="color: #ffffff;">Sincerely,</span><br /><span style="color: #ffffff;">The Tomatalk Team</span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2026-06-26T00:00:00+09:00'::timestamptz,
+  'general',
+  '{}'::text[],
+  '{}'::text[],
+  '2026-06-26T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '84c37feb-d788-5d14-a90d-1598bda4cf01',
+  '20260508-01',
   'TOTT 스테이킹 특별 프로모션 시행',
+  NULL,
   '2026.05.08 | TOTT 스테이킹 특별 프로모션 시행',
   'TOTT 스테이킹 특별 프로모션 안내
 
@@ -154,6 +169,7 @@ TOTT 스테이킹 레퍼럴 혜택은 가입 후 1개월 이후부터 이자 및
 감사합니다.
 
 토마톡 운영팀',
+  '',
   '<h1><span class="s1" style="color: #ffffff;"><b>TOTT 스테이킹 특별 프로모션 안내</b></span></h1>
 <p class="p2"><span style="color: #ffffff;">안녕하세요.</span><br /><span style="color: #ffffff;">토마톡 운영팀입니다.</span></p>
 <p class="p2"><span style="color: #ffffff;">TOTT 스테이킹에 참여해 주시는 모든 회원님께 감사드립니다.</span></p>
@@ -170,27 +186,44 @@ TOTT 스테이킹 레퍼럴 혜택은 가입 후 1개월 이후부터 이자 및
 <p class="p2"><span style="color: #ffffff;">회원 여러분의 많은 관심과 참여 부탁드립니다.</span></p>
 <p class="p2"><span style="color: #ffffff;">감사합니다.</span></p>
 <p class="p3"><span style="color: #ffffff;"><b>토마톡 운영팀</b></span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2026-05-08T00:00:00+09:00'::timestamptz,
+  NULL,
+  'general',
+  '{}'::text[],
+  '{}'::text[],
+  '2026-05-08T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
-  'TOTT 스마트 컨트랙트 CertiK 감사완료 안내 | TOTT SmartContract CertiK Audit Completion Announcement',
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '2b31e0ca-972e-505e-a1d9-f77101f72ded',
+  '20260420-02',
+  'TOTT 스마트 컨트랙트 CertiK 감사완료 안내',
+  'TOTT SmartContract CertiK Audit Completion Announcement',
   '2026.04.20 | TOTT 스마트 컨트랙트 CertiK 감사완료 안내 | TOTT SmartContract CertiK Audit Completion Announcement',
   'CertiK 보고서.pdf',
-  '<p><a href="/notices/CertiK-최종보고서.pdf" data-et-target-link="_blank" rel="noopener">CertiK 보고서.pdf</a></p>',
-  ARRAY['/notices/CertiK-최종보고서.pdf'],
-  ARRAY[]::text[],
-  '2026-04-20T00:00:00+09:00'::timestamptz,
+  '',
+  '<p><a href="https://tomatok.io/notices/CertiK-최종보고서.pdf" data-et-target-link="_blank" rel="noopener">CertiK 보고서.pdf</a></p>',
+  NULL,
+  'general',
+  ARRAY['https://tomatok.io/notices/CertiK-최종보고서.pdf']::text[],
+  '{}'::text[],
+  '2026-04-20T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '770c31e6-3523-5f2e-ae85-3466dbbf0c00',
+  '20260312-03',
   'TOTT 스테이킹 특별 프로모션 시행',
+  NULL,
   '2026.03.12 | TOTT 스테이킹 특별 프로모션 시행',
   'TOTT 스테이킹 특별 프로모션 안내
 
@@ -230,6 +263,7 @@ TOTT 스테이킹 레퍼럴 혜택은 가입 후 1개월 이후부터 이자 및
 감사합니다.
 
 토마톡 운영팀',
+  '',
   '<h1><span class="s1" style="color: #ffffff;"><b>TOTT 스테이킹 특별 프로모션 안내</b></span></h1>
 <p class="p2"><span style="color: #ffffff;">안녕하세요.</span><br /><span style="color: #ffffff;">토마톡 운영팀입니다.</span></p>
 <p class="p2"><span style="color: #ffffff;">TOTT 스테이킹에 참여해 주시는 모든 회원님께 감사드립니다.</span></p>
@@ -246,39 +280,65 @@ TOTT 스테이킹 레퍼럴 혜택은 가입 후 1개월 이후부터 이자 및
 <p class="p2"><span style="color: #ffffff;">회원 여러분의 많은 관심과 참여 부탁드립니다.</span></p>
 <p class="p2"><span style="color: #ffffff;">감사합니다.</span></p>
 <p class="p3"><span style="color: #ffffff;"><b>토마톡 운영팀</b></span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2026-03-12T00:00:00+09:00'::timestamptz,
+  NULL,
+  'general',
+  '{}'::text[],
+  '{}'::text[],
+  '2026-03-12T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '9e71fb9d-214e-5c34-acc4-acaf4eab9d48',
+  '20260226-04',
   '토마톡 임시 이사회 의사록',
+  NULL,
   '2026.02.26 | 토마톡 임시 이사회 의사록',
   '',
-  '<p><img src="/notices/임시-이사회-의사록-26.02.25_1.png" width="612" height="792" alt="" class="wp-image-436 alignnone size-full" /></p>',
-  ARRAY[]::text[],
-  ARRAY['/notices/임시-이사회-의사록-26.02.25_1.png'],
-  '2026-02-26T00:00:00+09:00'::timestamptz,
+  '',
+  '<p><img src="https://tomatok.io/notices/임시-이사회-의사록-26.02.25_1.png" width="612" height="792" alt="" class="wp-image-436 alignnone size-full" /></p>',
+  NULL,
+  'shareholder',
+  '{}'::text[],
+  ARRAY['https://tomatok.io/notices/임시-이사회-의사록-26.02.25_1.png']::text[],
+  '2026-02-26T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  'c01a05f4-672f-5333-aa46-efc40791ba93',
+  '20260224-05',
   '토마톡 이사회 임시 소집 안내',
+  NULL,
   '2026.02.24 | 토마톡 이사회 임시 소집 안내',
   '',
-  '<p><img src="/notices/이사회-임시-소집-안내-26.02.24001-724x1024.png" width="724" height="1024" alt="" class="wp-image-432 alignnone size-large" /></p>',
-  ARRAY[]::text[],
-  ARRAY['/notices/이사회-임시-소집-안내-26.02.24001-724x1024.png'],
-  '2026-02-24T00:00:00+09:00'::timestamptz,
+  '',
+  '<p><img src="https://tomatok.io/notices/이사회-임시-소집-안내-26.02.24001-724x1024.png" width="724" height="1024" alt="" class="wp-image-432 alignnone size-large" /></p>',
+  NULL,
+  'shareholder',
+  '{}'::text[],
+  ARRAY['https://tomatok.io/notices/이사회-임시-소집-안내-26.02.24001-724x1024.png']::text[],
+  '2026-02-24T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  'b7d7f38d-8f4d-573b-accb-76aa3880c72e',
+  '20260125-06',
   'TOTT 스테이킹 특별 프로모션 시행',
+  NULL,
   '2026.1.25 | TOTT 스테이킹 특별 프로모션 시행',
   'TOTT 스테이킹 특별 프로모션 안내
 
@@ -318,6 +378,7 @@ TOTT 스테이킹 레퍼럴 혜택은 가입 후 1개월 이후부터 이자 및
 감사합니다.
 
 토마톡 운영팀',
+  '',
   '<h1><span class="s1" style="color: #ffffff;"><b>TOTT 스테이킹 특별 프로모션 안내</b></span></h1>
 <p class="p2"><span style="color: #ffffff;">안녕하세요.</span><br /><span style="color: #ffffff;">토마톡 운영팀입니다.</span></p>
 <p class="p2"><span style="color: #ffffff;">TOTT 스테이킹에 참여해 주시는 모든 회원님께 감사드립니다.</span></p>
@@ -334,15 +395,23 @@ TOTT 스테이킹 레퍼럴 혜택은 가입 후 1개월 이후부터 이자 및
 <p class="p2"><span style="color: #ffffff;">회원 여러분의 많은 관심과 참여 부탁드립니다.</span></p>
 <p class="p2"><span style="color: #ffffff;">감사합니다.</span></p>
 <p class="p3"><span style="color: #ffffff;"><b>토마톡 운영팀</b></span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2026-01-25T00:00:00+09:00'::timestamptz,
+  NULL,
+  'general',
+  '{}'::text[],
+  '{}'::text[],
+  '2026-01-25T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  'fe894c49-4670-5935-aa67-be98064b3938',
+  '20260120-07',
   'TOTT 소각 안내 TOTT Burn Notice',
+  NULL,
   '2026.1.20 | TOTT 소각 안내 TOTT Burn Notice',
   'TOTT 소각 안내
 
@@ -423,10 +492,11 @@ No change to individual holder balances
 This is not investment advice
 Price or profit is not guaranteed
 Investment decisions are the sole responsibility of the user',
+  '',
   '<div class="tott-wrap">
 <div class="tott-card">
 <div class="tott-header">
-<p><img class="tott-hero-img" src="/notices/tott_fire.png" alt="TOTT 안내 이미지" loading="lazy" width="158" height="172" /></p>
+<p><img class="tott-hero-img" src="https://tomatok.io/notices/tott_fire.png" alt="TOTT 안내 이미지" loading="lazy" width="158" height="172" /></p>
 <div class="tott-title">TOTT 소각 안내</div>
 <p class="tott-subtitle">총 3억 TOTT 공급량 조정(소각)</p>
 </div>
@@ -461,7 +531,7 @@ Investment decisions are the sole responsibility of the user',
 </div>
 <div class="tott-row">
 <div class="tott-label"><span class="tott-dot">•</span>검증 방법</div>
-<div class="tott-value">Burn 주소<br /><a class="tott-tx" href="TX_LINK" data-et-target-link="_blank" rel="noopener noreferrer">트랜잭션 해시(TxID): TX_HASH</a><!-- ✅ 트랜잭션 해시 "밑" 이미지 1개 추가 --><br /><img class="tott-proof-img" src="/notices/tott_burn_capture.png" alt="트랜잭션 검증 이미지" loading="lazy" /></div>
+<div class="tott-value">Burn 주소<br /><a class="tott-tx" href="TX_LINK" data-et-target-link="_blank" rel="noopener noreferrer">트랜잭션 해시(TxID): TX_HASH</a><!-- ✅ 트랜잭션 해시 "밑" 이미지 1개 추가 --><br /><img class="tott-proof-img" src="https://tomatok.io/notices/tott_burn_capture.png" alt="트랜잭션 검증 이미지" loading="lazy" /></div>
 </div>
 <div class="tott-row">
 <div class="tott-label"><span class="tott-dot">•</span>소각 후 영향</div>
@@ -477,7 +547,7 @@ Investment decisions are the sole responsibility of the user',
 <div class="tott-wrap">
 <div class="tott-card">
 <div class="tott-header">
-<p><img class="tott-hero-img" src="/notices/tott_fire.png" alt="TOTT Burn Notice Image" loading="lazy" width="158" height="172" /></p>
+<p><img class="tott-hero-img" src="https://tomatok.io/notices/tott_fire.png" alt="TOTT Burn Notice Image" loading="lazy" width="158" height="172" /></p>
 <div class="tott-title">TOTT Burn Notice</div>
 <p class="tott-subtitle">Supply Adjustment: 300 Million TOTT Burn</p>
 </div>
@@ -512,7 +582,7 @@ Investment decisions are the sole responsibility of the user',
 </div>
 <div class="tott-row">
 <div class="tott-label"><span class="tott-dot">•</span>Verification</div>
-<div class="tott-value">Burn address<a class="tott-tx" href="TX_LINK" data-et-target-link="_blank" rel="noopener noreferrer"><br />Transaction Hash (TxID): TX_HASH</a><br /><img class="tott-proof-img" src="/notices/tott_burn_capture.png" alt="Transaction Verification Image" loading="lazy" /></div>
+<div class="tott-value">Burn address<a class="tott-tx" href="TX_LINK" data-et-target-link="_blank" rel="noopener noreferrer"><br />Transaction Hash (TxID): TX_HASH</a><br /><img class="tott-proof-img" src="https://tomatok.io/notices/tott_burn_capture.png" alt="Transaction Verification Image" loading="lazy" /></div>
 </div>
 <div class="tott-row">
 <div class="tott-label"><span class="tott-dot">•</span>Post-Burn Impact</div>
@@ -525,15 +595,23 @@ Investment decisions are the sole responsibility of the user',
 </div>
 </div>
 </div>',
-  ARRAY[]::text[],
-  ARRAY['/notices/tott_fire.png','/notices/tott_burn_capture.png'],
-  '2026-01-20T00:00:00+09:00'::timestamptz,
+  NULL,
+  'general',
+  '{}'::text[],
+  ARRAY['https://tomatok.io/notices/tott_fire.png','https://tomatok.io/notices/tott_burn_capture.png']::text[],
+  '2026-01-20T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
-  '※※조기 언스테이킹 기능 이용 가능※※ | ※※Early Unstaing Feature Now Available※※',
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '6040f747-48dd-567a-a6b3-63f500de5f30',
+  '20251226-08',
+  '※※조기 언스테이킹 기능 이용 가능※※',
+  '※※Early Unstaing Feature Now Available※※',
   '2025.12.26 | ※※조기 언스테이킹 기능 이용 가능※※ | ※※Early Unstaing Feature Now Available※※',
   '■ 약관 및 유의사항
 
@@ -558,6 +636,7 @@ This is a result of network protocol and operational policies, and the company a
 ■ Legal Disclaimer Notice
 
 "All quantity reductions (slashing, penalties, etc.) that occur during the unstaking process of this service are due to the user''s responsibility and network algorithms, and the company is hereby expressly exempted from liability for losses resulting from asset reductions."',
+  '',
   '<p class="p1"><span style="color: #ffffff;">■ 약관 및 유의사항</span></p>
 <p class="p1"><span style="color: #ffffff;">"언스테이킹 신청 시점에 따라 보상 삭감이나<br /></span><span style="color: #ffffff;">페널티로 인해 스테이킹 수량(원금 포함)의 90% 감소가 발생할 수 있습니다.<br /></span><span style="color: #ffffff;">이는 네트워크 프로토콜 및 운영 정책에 따른 결과이며,<br /></span><span style="color: #ffffff;">회사는 해당 자산 감소분에 대하여 어떠한 책임을 지지 않습니다."</span></p>
 <p class="p2">
@@ -574,15 +653,23 @@ This is a result of network protocol and operational policies, and the company a
 <p class="p1"><span style="color: #ffffff;">■ Legal Disclaimer Notice</span></p>
 <p class="p2">
 <p class="p1"><span style="color: #ffffff;">"All quantity reductions (slashing, penalties, etc.) that occur during the unstaking process of this service are due to the user''s responsibility and network algorithms, and the company is hereby expressly exempted from liability for losses resulting from asset reductions."</span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2025-12-26T00:00:00+09:00'::timestamptz,
+  NULL,
+  'upgrade',
+  '{}'::text[],
+  '{}'::text[],
+  '2025-12-26T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '386654b4-4d5e-5c2f-a1de-45d459e8a3f2',
+  '20251105-09',
   '토마톡 임시주주총회 의사록 안내',
+  NULL,
   '2025.11.05 | 토마톡 임시주주총회 의사록 안내',
   '주주님 여러분께 항상 주식회사 니즈퍼샌드에 보내주시는 관심과 성원에 깊은 감사를 드립니다.
 2025년 10월 30일(수)과 31일(목) 양일간 개최된 서울 임시주주총회가 성황리에 마무리되었기에 그 결과를 아래와 같이 공지드립니다.
@@ -602,22 +689,31 @@ VALUES (
 제3호 의안: 배당금 분배 방법 및 대우, 혜택 안내의 건 ▶ 만장일치 가결
 본 임시주주총회에서 상정된 모든 안건이 만장일치로 가결되었음을 알려드리며, 세부 내용은 추후 개별 안내 예정입니다.
 니즈퍼샌드 대표이사 김남진',
+  '',
   '<p><span style="color: #ffffff;">주주님 여러분께 항상 주식회사 니즈퍼샌드에 보내주시는 관심과 성원에 깊은 감사를 드립니다.</span><br /><span style="color: #ffffff;">2025년 10월 30일(수)과 31일(목) 양일간 개최된 서울 임시주주총회가 성황리에 마무리되었기에 그 결과를 아래와 같이 공지드립니다.</span><br /><span style="color: #ffffff;">■ 개최 일시 및 장소</span></p>
 <p><span style="color: #ffffff;">일시: 2025년 10월 30일(수) ~ 31일(목) 오후 2시</span><br /><span style="color: #ffffff;">장소: GRC역삼모임공간 지하 1층 메타아트홀</span></p>
 <p><span style="color: #ffffff;">■ 출석 현황</span></p>
 <p><span style="color: #ffffff;">총 서울 주주 수: 193명</span><br /><span style="color: #ffffff;">출석 주주 수: 138명 (과반 이상 출석으로 총회 적법 성립)</span></p>
 <p><span style="color: #ffffff;">■ 의결 사항</span><br /><span style="color: #ffffff;">제1호 의안: 토마톡 스테이킹풀 TOTT 지급 관련 변경의 건 ▶ 만장일치 가결</span><br /><span style="color: #ffffff;">제2호 의안: 토마콩즈 NFT 지급의 건 ▶ 만장일치 가결</span><br /><span style="color: #ffffff;">제3호 의안: 배당금 분배 방법 및 대우, 혜택 안내의 건 ▶ 만장일치 가결</span><br /><span style="color: #ffffff;">본 임시주주총회에서 상정된 모든 안건이 만장일치로 가결되었음을 알려드리며, 세부 내용은 추후 개별 안내 예정입니다.</span><br /><span style="color: #ffffff;">니즈퍼샌드 대표이사 김남진</span></p>
-<p><img src="/notices/KakaoTalk_20251105_151641119.png" width="967" height="1253" alt="" class="wp-image-384 alignnone size-full" /></p>
+<p><img src="https://tomatok.io/notices/KakaoTalk_20251105_151641119.png" width="967" height="1253" alt="" class="wp-image-384 alignnone size-full" /></p>
 <p class="p3">',
-  ARRAY[]::text[],
-  ARRAY['/notices/KakaoTalk_20251105_151641119.png'],
-  '2025-11-05T00:00:00+09:00'::timestamptz,
+  NULL,
+  'shareholder',
+  '{}'::text[],
+  ARRAY['https://tomatok.io/notices/KakaoTalk_20251105_151641119.png']::text[],
+  '2025-11-05T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  'a2401754-d3d4-5f08-a0d3-0eaf8b9d5f22',
+  '20251024-10',
   '토마톡 임시주주총회 소집 안내',
+  NULL,
   '2025.10.24 | 토마톡 임시주주총회 소집 안내',
   '주주님 여러분께
 항상 주식회사 니즈퍼샌드에 보내주시는 관심과 성원에 깊은 감사를 드립니다.
@@ -637,6 +733,7 @@ GRC역삼모임공간 지하 1층 메타아트홀
 
 니즈퍼샌드
 대표이사 김남진',
+  '',
   '<p> </p>
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">주주님 여러분께<br /></span><span style="color: #ffffff;">항상 주식회사 니즈퍼샌드에 보내주시는 관심과 성원에 깊은 감사를 드립니다.<br /></span><span style="color: #ffffff;">주주총회에서 의결할 중요 사항이 발생함에 따라 임시주주총회를 아래와 같이 개최하오니, 참석하여 주시기 바랍니다.</span></p>
 <p class="whitespace-normal break-words"><span style="color: #ffffff;"></span></p>
@@ -645,17 +742,25 @@ GRC역삼모임공간 지하 1층 메타아트홀
 <p class="whitespace-normal break-words"><span style="color: #ffffff;"><strong>■ 회의목적사항</strong></span><br /><span style="color: #ffffff;">가. 참석 대상: 서울 영업 본사 주주분들만 해당</span><br /><span style="color: #ffffff;">나. TOTT 정책 변경의 건</span><br /><span style="color: #ffffff;">다. 스마트컨트랙트 진입 조건 안내</span><br /><span style="color: #ffffff;">라. 지분 분배 방법 및 대우, 혜택 안내</span></p>
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">니즈퍼샌드</span><br /><span style="color: #ffffff;">대표이사 김남진</span></p>
 <p> </p>
-<p><img src="/notices/KakaoTalk_Photo_2025-10-24-10-12-10.png" width="879" height="1244" alt="" class="wp-image-377 alignnone size-full" /></p>
+<p><img src="https://tomatok.io/notices/KakaoTalk_Photo_2025-10-24-10-12-10.png" width="879" height="1244" alt="" class="wp-image-377 alignnone size-full" /></p>
 <p class="p3">',
-  ARRAY[]::text[],
-  ARRAY['/notices/KakaoTalk_Photo_2025-10-24-10-12-10.png'],
-  '2025-10-24T00:00:00+09:00'::timestamptz,
+  NULL,
+  'shareholder',
+  '{}'::text[],
+  ARRAY['https://tomatok.io/notices/KakaoTalk_Photo_2025-10-24-10-12-10.png']::text[],
+  '2025-10-24T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '6333cc17-d67b-548f-a9a2-bd42ff6f7ce0',
+  '20251023-11',
   '토마톡 이사회 임시 소집 안내',
+  NULL,
   '2025.10.23 | 토마톡 이사회 임시 소집 안내',
   '안녕하십니까.
 
@@ -672,6 +777,7 @@ VALUES (
 2025년 10월 23일
 주식회사 니즈퍼샌드
 대표이사 김남진',
+  '',
   '<p> </p>
 <p> </p>
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">안녕하십니까.</span></p>
@@ -681,17 +787,25 @@ VALUES (
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">감사합니다.</span></p>
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">2025년 10월 23일</span><br /><span style="color: #ffffff;">주식회사 니즈퍼샌드</span><br /><span style="color: #ffffff;">대표이사 김남진</span></p>
 <p> </p>
-<p class="p3"><a href="/notices/kakaotalk_photo_2025-10-23-15-54-31"><img src="/notices/KakaoTalk_Photo_2025-10-23-15-54-31.png" width="919" height="1300" alt="" class="wp-image-371 alignnone size-full" /></a></p>
+<p class="p3"><a href="https://tomatok.io/notices/kakaotalk_photo_2025-10-23-15-54-31"><img src="https://tomatok.io/notices/KakaoTalk_Photo_2025-10-23-15-54-31.png" width="919" height="1300" alt="" class="wp-image-371 alignnone size-full" /></a></p>
 <p class="p3">',
-  ARRAY['/notices/KakaoTalk_Photo_2025-10-23-15-54-31.png'],
-  ARRAY['/notices/KakaoTalk_Photo_2025-10-23-15-54-31.png'],
-  '2025-10-23T00:00:00+09:00'::timestamptz,
+  NULL,
+  'shareholder',
+  ARRAY['https://tomatok.io/notices/KakaoTalk_Photo_2025-10-23-15-54-31.png']::text[],
+  ARRAY['https://tomatok.io/notices/KakaoTalk_Photo_2025-10-23-15-54-31.png']::text[],
+  '2025-10-23T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
-  '토마톡팀 긴급 공지 (필독) | Urgent Notice from the TomaTok Team (Mandatory Read)',
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '38331adb-1c2f-5904-a77e-3db5a56d811b',
+  '20250822-12',
+  '토마톡팀 긴급 공지 (필독)',
+  'Urgent Notice from the TomaTok Team (Mandatory Read)',
   '2025.08.22 | 토마톡팀 긴급 공지 (필독) | Urgent Notice from the TomaTok Team (Mandatory Read)',
   '■ 토마톡팀 긴급 공지 (필독)
 
@@ -758,6 +872,7 @@ This decision has been made as a protective measure for our valued participants 
 Thank you for your trust and continued participation.
 
 — TomaTok Team',
+  '',
   '<p> </p>
 <p><span style="color: #ffffff;">■ 토마톡팀 긴급 공지 (필독)</span></p>
 <p><span style="color: #ffffff;">토마톡팀에서는 특정 기간을 트래킹하여 발생 시점 및</span></p>
@@ -792,15 +907,23 @@ Thank you for your trust and continued participation.
 <p class="p1"><span style="color: #ffffff;">This decision has been made as a protective measure for our valued participants and for the continued development of TomaTok. We assure you that we will take prompt actions to minimize any inconvenience for our community.</span></p>
 <p class="p1"><span style="color: #ffffff;">Thank you for your trust and continued participation.</span></p>
 <p class="p3"><span style="color: #ffffff;"><span class="s2">— </span><b>TomaTok Team</b></span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2025-08-22T00:00:00+09:00'::timestamptz,
+  NULL,
+  'urgent',
+  '{}'::text[],
+  '{}'::text[],
+  '2025-08-22T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
-  '※※ 안내 공지(필독) ※※ | Notice (Please Read)',
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '60011f6c-bebf-52b3-af91-8372795fd546',
+  '20250801-13',
+  '※※ 안내 공지(필독) ※※',
+  'Notice (Please Read)',
   '2025.08.01 | ※※ 안내 공지(필독) ※※ | Notice (Please Read)',
   '현재 네이버 블로그에서 "토마톡"
 
@@ -829,6 +952,7 @@ As a result, the post has been taken down by Naver following our rights infringe
 We will continue to take strong action against such cases in the future.
 
 Thank you.',
+  '',
   '<p> </p>
 <p><span style="color: #ffffff;">현재 네이버 블로그에서 "토마톡"</span></p>
 <p><span style="color: #ffffff;">검색하게 되면 ''토마톡 사기''라는</span></p>
@@ -849,15 +973,23 @@ Thank you.',
 <p class="p1"><span style="color: #ffffff;">We will continue to take <span class="s1"><b>strong action</b></span> against such cases in the future.</span></p>
 <p class="p2">
 <p class="p1"><span style="color: #ffffff;">Thank you.</span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2025-08-01T00:00:00+09:00'::timestamptz,
+  NULL,
+  'urgent',
+  '{}'::text[],
+  '{}'::text[],
+  '2025-08-01T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
-  '※※ 중요 공지 ※※| Important Notice',
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '601e8b6f-0ed4-5f1e-a9e4-244ca3343159',
+  '20250731-14',
+  '※※ 중요 공지 ※※',
+  'Important Notice',
   '2025.07.31 |※※ 중요 공지 ※※| Important Notice',
   '현재 네이버 블로그에서 "토마톡"
 
@@ -908,6 +1040,7 @@ for defamation, spreading false information, and business interference.
 and have requested its removal.
 
 3. We are proceeding with legal action through TomaTok’s legal advisory firm.',
+  '',
   '<p><span style="color: #ffffff;"> </span></p>
 <p><span style="color: #ffffff;">현재 네이버 블로그에서 "토마톡"</span></p>
 <p><span style="color: #ffffff;">검색하게 되면 ''토마톡 사기''라는</span></p>
@@ -933,15 +1066,23 @@ and have requested its removal.
 <p class="p2"><span style="color: #ffffff;"><span class="s2">and have </span><b>requested its removal</b><span class="s2">.</span></span></p>
 <p><span style="color: #ffffff;">3. We are proceeding with <span class="s1"><b>legal action</b></span> through TomaTok’s legal advisory firm.</span></p>
 <p><span style="color: #ffffff;"> </span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2025-07-31T00:00:00+09:00'::timestamptz,
+  NULL,
+  'urgent',
+  '{}'::text[],
+  '{}'::text[],
+  '2025-07-31T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
-  '※※ 중요 공지(필독) ※※| Important Notice (Please Read)',
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '709dba14-d910-5257-a1b1-afa6cfcb4f14',
+  '20250731-15',
+  '※※ 중요 공지(필독) ※※',
+  'Important Notice (Please Read)',
   '2025.07.31 |※※ 중요 공지(필독) ※※| Important Notice (Please Read)',
   '● 토마톡의 스테이킹풀은 본사의 절차와
 승인없이 어떠한 이유에도 개인적으로
@@ -977,6 +1118,7 @@ Even if funds are transferred but cannot be verified due to incorrect wallet lin
 TomaTok and the Staking Pool will not be held responsible under any circumstances.
 
 Please make sure to verify thoroughly in advance.',
+  '',
   '<p> </p>
 <p> <span style="color: #ffffff;">● 토마톡의 스테이킹풀은 본사의 절차와</span><br /><span style="color: #ffffff;">승인없이 어떠한 이유에도 개인적으로</span><br /><span style="color: #ffffff;">양도, 양수는 절대 할 수가 없으며 이를</span><br /><span style="color: #ffffff;">진행시 양도자나 양수자에게 불이익이</span><br /><span style="color: #ffffff;">발생할 수 있습니다.</span><br /><span style="color: #ffffff;">반드시 본사에게 문의하여 얼리 언스테이킹</span><br /><span style="color: #ffffff;">을 요청하기 바랍니다.</span></p>
 <p><span style="color: #ffffff;">● 토마톡의 스테이킹풀 스테이킹 이자율 출금을 </span><br /><span style="color: #ffffff;">요청 시에는 스테이킹풀에 연동의 되어 있는 </span><br /><span style="color: #ffffff;">팬텀지갑 주소가 동일 한지 꼭 확인해주시고</span><br /><span style="color: #ffffff;">진행 요청해 주시기 바랍니다.</span><br /><span style="color: #ffffff;">꼭 2~3회 중복 확인 해주시고 연동 지갑으로 입금</span><br /><span style="color: #ffffff;">을 하여 확인이 안된다고 하더라도 본사 및 토마톡</span><br /><span style="color: #ffffff;">스테이킹풀에는 책임이 없다는점 꼭 상기해 주시기</span><br /><span style="color: #ffffff;">바랍니다.</span></p>
@@ -990,15 +1132,23 @@ Please make sure to verify thoroughly in advance.',
 <p class="p1"><span style="color: #ffffff;">Even if funds are transferred but cannot be verified due to incorrect wallet linkage,</span></p>
 <p class="p3"><span style="color: #ffffff;"><b>TomaTok and the Staking Pool will not be held responsible</b><span class="s2"> under any circumstances.</span></span></p>
 <p class="p1"><span style="color: #ffffff;">Please make sure to verify thoroughly in advance.</span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2025-07-31T00:00:00+09:00'::timestamptz,
+  NULL,
+  'urgent',
+  '{}'::text[],
+  '{}'::text[],
+  '2025-07-31T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
-  '※※ 중요 공지사항 ※※ | Important Notice',
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  'eb6603a8-fa7c-582e-a776-33bb7035ddb2',
+  '20250725-16',
+  '※※ 중요 공지사항 ※※',
+  'Important Notice',
   '2025.07.25 | ※※ 중요 공지사항 ※※ | Important Notice',
   '토마톡 스테이킹풀 스마트컨트랙트를 도입하는 과정에서
 
@@ -1029,6 +1179,7 @@ our team will review each request and proceed accordingly based on the establish
 Thank you for your understanding and cooperation.
 
 — TomaTok Staking —',
+  '',
   '<p> </p>
 <p><span style="color: #ffffff;">토마톡 스테이킹풀 스마트컨트랙트를 도입하는 과정에서</span></p>
 <p><span style="color: #ffffff;">시스템 및 데이터의 유효 및 효율성을 위하여 부득히하게</span></p>
@@ -1046,15 +1197,23 @@ Thank you for your understanding and cooperation.
 <p class="p1"><span style="color: #ffffff;">Thank you for your understanding and cooperation.</span></p>
 <p class="p1"><span style="color: #ffffff;">— TomaTok Staking —</span></p>
 <p> </p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2025-07-25T00:00:00+09:00'::timestamptz,
+  NULL,
+  'urgent',
+  '{}'::text[],
+  '{}'::text[],
+  '2025-07-25T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
-  '※※ 공지 사항 ※※ | NOTICE',
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '1958ef2e-83bc-52fe-ae7c-f5a2b8d81bc6',
+  '20250713-17',
+  '※※ 공지 사항 ※※',
+  'NOTICE',
   '2025.07.13 | ※※ 공지 사항 ※※ | NOTICE',
   'tomatokfi.com 스테이킹풀
 
@@ -1083,6 +1242,7 @@ We are pleased to inform you that operations have returned to normal.
 We will continue to work harder to provide safe and convenient service.
 
 Thank you.',
+  '',
   '<p> <span style="color: #ffffff;"></span></p>
 <p><span style="color: #ffffff;"></span></p>
 <p><span style="color: #ffffff;">tomatokfi.com 스테이킹풀</span></p>
@@ -1099,15 +1259,23 @@ Thank you.',
 <p class="whitespace-pre-wrap break-words"><span style="color: #ffffff;">We are pleased to inform you that operations have returned to normal. </span></p>
 <p class="whitespace-pre-wrap break-words"><span style="color: #ffffff;">We will continue to work harder to provide safe and convenient service.</span></p>
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">Thank you.</span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2025-07-13T00:00:00+09:00'::timestamptz,
+  NULL,
+  'urgent',
+  '{}'::text[],
+  '{}'::text[],
+  '2025-07-13T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
-  '※※ 긴급 재공지 사항(2) ※※ | URGENT RE-NOTICE (2)',
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '59b2a37c-3a4e-5279-ad1c-a173338588b9',
+  '20250712-18',
+  '※※ 긴급 재공지 사항(2) ※※',
+  'URGENT RE-NOTICE (2)',
   '2025.07.12 | ※※ 긴급 재공지 사항(2) ※※ | URGENT RE-NOTICE (2)',
   'tomatokfi.com 스테이킹풀
 
@@ -1140,6 +1308,7 @@ Date: July 13, 2025 Recovery Time: 12:00
 We will provide a separate notice once server recovery is complete.
 
 We apologize for any inconvenience caused.',
+  '',
   '<p><span style="color: #ffffff;"></span></p>
 <p><span style="color: #ffffff;">tomatokfi.com 스테이킹풀</span></p>
 <p><span style="color: #ffffff;">서버 및 보안 점검 안내 드립니다.</span></p>
@@ -1157,15 +1326,23 @@ We apologize for any inconvenience caused.',
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">Date: July 13, 2025 Recovery Time: 12:00</span></p>
 <p class="whitespace-pre-wrap break-words"><span style="color: #ffffff;">We will provide a separate notice once server recovery is complete. </span></p>
 <p class="whitespace-pre-wrap break-words"><span style="color: #ffffff;">We apologize for any inconvenience caused.</span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2025-07-12T00:00:00+09:00'::timestamptz,
+  NULL,
+  'urgent',
+  '{}'::text[],
+  '{}'::text[],
+  '2025-07-12T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
-  '※※ 긴급 재공지 사항 ※※ | URGENT RE-NOTICE',
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  'a2635c44-738a-546b-acb1-90baaaaafc4f',
+  '20250712-19',
+  '※※ 긴급 재공지 사항 ※※',
+  'URGENT RE-NOTICE',
   '2025.07.12 | ※※ 긴급 재공지 사항 ※※ | URGENT RE-NOTICE',
   'tomatokfi.com 스테이킹풀
 
@@ -1194,6 +1371,7 @@ We expect approximately 2 hours of additional delay.
 We will work to restore normal operations as quickly as possible.
 
 We apologize for any inconvenience caused.',
+  '',
   '<p><span style="color: #ffffff;"></span></p>
 <p><span style="color: #ffffff;">tomatokfi.com 스테이킹풀</span></p>
 <p><span style="color: #ffffff;">서버 및 보안 점검 안내 드립니다.</span></p>
@@ -1209,15 +1387,23 @@ We apologize for any inconvenience caused.',
 <p class="whitespace-pre-wrap break-words"><span style="color: #ffffff;">We expect approximately 2 hours of additional delay. </span></p>
 <p class="whitespace-pre-wrap break-words"><span style="color: #ffffff;">We will work to restore normal operations as quickly as possible. </span></p>
 <p class="whitespace-pre-wrap break-words"><span style="color: #ffffff;">We apologize for any inconvenience caused.</span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2025-07-12T00:00:00+09:00'::timestamptz,
+  NULL,
+  'urgent',
+  '{}'::text[],
+  '{}'::text[],
+  '2025-07-12T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
-  '※※ 긴급 공지 사항 ※※ | URGENT NOTICE',
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  'b3271211-e9fa-5d30-adc0-37955289bbf3',
+  '20250712-20',
+  '※※ 긴급 공지 사항 ※※',
+  'URGENT NOTICE',
   '2025.07.12 | ※※ 긴급 공지 사항 ※※ | URGENT NOTICE',
   'tomatokfi.com 스테이킹풀
 
@@ -1240,6 +1426,7 @@ Date: July 12, 2025 Expected Maintenance Time: 04:00 ~ 15:00
 We apologize for the late notice. We will work to restore normal operations as quickly as possible.
 
 Thank you.',
+  '',
   '<p><span style="color: #ffffff;"> </span></p>
 <p><span style="color: #ffffff;">tomatokfi.com 스테이킹풀</span></p>
 <p><span style="color: #ffffff;">서버 및 보안 점검 안내 드립니다.</span></p>
@@ -1253,15 +1440,23 @@ Thank you.',
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">Date: July 12, 2025 Expected Maintenance Time: 04:00 ~ 15:00</span></p>
 <p class="whitespace-pre-wrap break-words"><span style="color: #ffffff;">We apologize for the late notice. We will work to restore normal operations as quickly as possible.</span></p>
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">Thank you.</span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2025-07-12T00:00:00+09:00'::timestamptz,
+  NULL,
+  'urgent',
+  '{}'::text[],
+  '{}'::text[],
+  '2025-07-12T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
-  'TomaTok 게임을 통한 포인트 획득 안내 공지 | TomaTok Game Points Earning Guide Notice v1.3.28(78)',
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '671d9eb9-373e-5fd4-a9a2-f7c2f1ccc7ae',
+  '20250710-21',
+  'TomaTok 게임을 통한 포인트 획득 안내 공지',
+  'TomaTok Game Points Earning Guide Notice v1.3.28(78)',
   '2025.07.10 | TomaTok 게임을 통한 포인트 획득 안내 공지 | TomaTok Game Points Earning Guide Notice v1.3.28(78)',
   '안녕하세요, TomaTok 이용자 여러분!
 
@@ -1572,6 +1767,7 @@ Contact and Support
 Email: needspersand@tomatok.io 1-on-1 Inquiry TomaTok Team
 
 © 2025 Needspersand Co., Ltd. All rights reserved.',
+  'Hello, TomaTok Users! A new point earning system has been added to TomaTok''s Game tab! We introduce a new way to earn points while enjoying fun games and exchange them for TOTT tokens. Earning Points Through Games Two Games at the Bottom of the Game Tab Accumulate points with fun games: Ladder Climbing Game Test your luck with the classic ladder climbing game Anyone can easily enjoy it with simple rules You can earn various points according to game results Provides thrilling fun with different results every time Available up to 3 times per day Roulette Game Catch the opportunity to earn points with the spinning roulette Test your luck on the roulette with various points placed An exciting game that always brings new expectations You can enjoy the game with a simple touch Available up to 3 times per day How to Use Games Easy and simple game participation: Go to the ''Game'' tab in the TomaTok app Select the desired game from ''Ladder Climbing'' and ''Roulette'' games located at the bottom Each game can be used up to 3 times per day Enjoy the game and earn points Earned points are credited to your account in real-time Exchanging Points for TOTT Point Exchange System Convert your points to TOTT tokens: Exchange Rate: 20,000:1 20,000 points = 1 TOTT token You can exchange game points for actual tokens at a reasonable rate Points earned through games gain real value Minimum Exchange Points: 300,000 points TOTT exchange is possible from a minimum of 300,000 points 300,000 points = 15 TOTT tokens for exchange You can collect enough points and exchange them all at once Exchange Conditions and Requirements Essential conditions for point exchange: Wallet Creation Required Point exchange is not possible if there is no wallet in the account A Solana wallet is required to receive TOTT tokens Wallet creation can be done easily within the TomaTok app You can use the point exchange function immediately after wallet creation Advantages of the Point System Fun and Profit Simultaneously Perfect combination of gaming and profit generation: Entertainment Value Provides genuine fun, not just for point earning Casual games that can be enjoyed in a short time help relieve stress Mobile-optimized games that can be enjoyed anytime, anywhere Practical Rewards Points earned from games are exchanged for actual cryptocurrency You can acquire TOTT tokens while having fun playing games You can collect meaningful amounts of tokens by consistently enjoying games Safe and Transparent System Reliable point management: All point earning and exchange records are transparently recorded Uses verified algorithms that guarantee fair game results Point exchange process is safely handled through blockchain User game data and point information are safely protected Preparation Before Starting Wallet Setup Guide Wallet preparation for point exchange: Step 1: Wallet Creation Go to the ''Wallet'' menu in the TomaTok app Touch the ''Create Wallet'' button to create a new Solana wallet Generate a secure secret phrase and store it in a safe place Step 2: Wallet Verification Check if the wallet address has been created normally The point exchange menu is activated after wallet creation is completed Step 3: Point Exchange Ready Collect more than 300,000 points through games Exchange for TOTT in the point exchange menu Game Point System Utilization Tips Efficient Point Earning Ways to earn more points: Participate in games consistently every day to accumulate points (each game available 3 times per day) Utilize both ladder climbing and roulette games Understand the characteristics of each game and develop optimal strategies Enjoy games and compete with friends Point Management and Exchange Planning Smart point utilization: Set target points and collect them systematically First aim for the minimum exchange point of 300,000 points Strategically plan your point exchange timing Decide exchange timing considering TOTT token value changes TomaTok Ecosystem Expansion Fusion of Gaming and Token Economy Through the new game point system, TomaTok is developing beyond a simple messenger into a comprehensive platform that combines gaming and token economy. Users can not only communicate daily but also receive practical rewards through fun games, which will lead to sustainable growth of the TomaTok ecosystem. Start Right Now! Update to the latest version v1.3.28(78) to experience the new game point system. A new way to acquire TOTT tokens with fun games is waiting for you! Prepare your wallet and start playing games to collect points. When you collect 300,000 points, you can feel the joy of your first TOTT exchange! If you have any questions or inquiries, please contact us anytime. Contact and Support Email: needspersand@tomatok.io 1-on-1 Inquiry TomaTok Team © 2025 Needspersand Co., Ltd. All rights reserved.',
   '<p class="whitespace-normal break-words"><span style="color: #ffffff;">안녕하세요, TomaTok 이용자 여러분!</span></p>
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">TomaTok 게임탭에 새로운 포인트 획득 시스템이 추가되었습니다! 재미있는 게임을 즐기면서 포인트를 획득하고, 이를 TOTT 토큰으로 교환하는 새로운 방법을 소개해드립니다.</span></p>
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">게임으로 포인트 획득하기</span></p>
@@ -1698,9 +1894,8 @@ Email: needspersand@tomatok.io 1-on-1 Inquiry TomaTok Team
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">지갑을 준비하고 게임을 시작하여 포인트를 모아보세요. 30만 포인트가 모이면 첫 번째 TOTT 교환의 기쁨을 느끼실 수 있습니다!</span></p>
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">궁금한 점이나 문의사항이 있으시면 언제든지 연락해 주세요.</span></p>
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">문의 및 지원</span></p>
-<p class="whitespace-normal break-words"><span style="color: #ffffff;">이메일: <a class="underline" href="mailto:needspersand@tomatok.io" style="color: #ffffff;">needspersand@tomatok.io</a> 1대1 문의하기 TomaTok 팀 드림</span></p>
-<hr />
-<p class="whitespace-normal break-words"><span style="color: #ffffff;">Hello, TomaTok Users!</span></p>
+<p class="whitespace-normal break-words"><span style="color: #ffffff;">이메일: <a class="underline" href="mailto:needspersand@tomatok.io" style="color: #ffffff;">needspersand@tomatok.io</a> 1대1 문의하기 TomaTok 팀 드림</span></p>',
+  '<p class="whitespace-normal break-words"><span style="color: #ffffff;">Hello, TomaTok Users!</span></p>
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">A new point earning system has been added to TomaTok''s Game tab! We introduce a new way to earn points while enjoying fun games and exchange them for TOTT tokens.</span></p>
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">Earning Points Through Games</span></p>
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">Two Games at the Bottom of the Game Tab</span></p>
@@ -1828,15 +2023,22 @@ Email: needspersand@tomatok.io 1-on-1 Inquiry TomaTok Team
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">Contact and Support</span></p>
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">Email: <a class="underline" href="mailto:needspersand@tomatok.io" style="color: #ffffff;">needspersand@tomatok.io</a> 1-on-1 Inquiry TomaTok Team</span></p>
 <p class="whitespace-normal break-words"><span style="color: #ffffff;">© 2025 Needspersand Co., Ltd. All rights reserved.</span></p>',
-  ARRAY['mailto:needspersand@tomatok.io','mailto:needspersand@tomatok.io'],
-  ARRAY[]::text[],
-  '2025-07-10T00:00:00+09:00'::timestamptz,
+  'upgrade',
+  ARRAY['mailto:needspersand@tomatok.io','mailto:needspersand@tomatok.io']::text[],
+  '{}'::text[],
+  '2025-07-10T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '1e73a7c4-5eab-5e44-a378-94c896688115',
+  '20250616-22',
   '새로운 단체채팅방 기능을 소개합니다',
+  NULL,
   '2025.06.16 | 새로운 단체채팅방 기능을 소개합니다',
   '안녕하세요, TomaTok 이용자 여러분!
 
@@ -1951,6 +2153,7 @@ AI 번역의 정확성
 TomaTok 팀 드림
 
 © 2025 주식회사니즈퍼샌드. All rights reserved.',
+  '',
   '<p><span style="color: #ffffff;"> </span></p>
 <p><span style="color: #ffffff;"> </span></p>
 <p><span style="color: #ffffff;"> </span></p>
@@ -2027,15 +2230,23 @@ TomaTok 팀 드림
 <p><span style="color: #ffffff;">TomaTok 팀 드림</span></p>
 <p><span style="color: #ffffff;"> </span></p>
 <p><span style="color: #ffffff;">© 2025 주식회사니즈퍼샌드. All rights reserved.</span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2025-06-16T00:00:00+09:00'::timestamptz,
+  NULL,
+  'upgrade',
+  '{}'::text[],
+  '{}'::text[],
+  '2025-06-16T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '1f29c58d-ee52-57b8-a8fb-697b36f4b42a',
+  '20250612-23',
   '새로운 친구추가 기능을 소개합니다',
+  NULL,
   '2025.06.12 | 새로운 친구추가 기능을 소개합니다',
   '안녕하세요, TomaTok 이용자 여러분!
 
@@ -2164,6 +2375,7 @@ TomaTok에 새로운 친구추가 기능이 추가되었습니다! 이제 더욱
 TomaTok 팀 드림
 
 © 2025 주식회사니즈퍼샌드. All rights reserved.',
+  '',
   '<p><span style="color: #ffffff;"> </span></p>
 <p><span style="color: #ffffff;"> </span></p>
 <p><span style="color: #ffffff;"> </span></p>
@@ -2248,15 +2460,23 @@ TomaTok 팀 드림
 <p><span style="color: #ffffff;">TomaTok 팀 드림</span></p>
 <p><span style="color: #ffffff;"> </span></p>
 <p><span style="color: #ffffff;">© 2025 주식회사니즈퍼샌드. All rights reserved.</span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2025-06-12T00:00:00+09:00'::timestamptz,
+  NULL,
+  'upgrade',
+  '{}'::text[],
+  '{}'::text[],
+  '2025-06-12T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  'd2ed166d-3865-57ca-a244-9e151e6ee3a5',
+  '20250526-24',
   '럭키 토마톡 룰렛 게임',
+  NULL,
   '2025.05.26 | 럭키 토마톡 룰렛 게임',
   '테스트 진행 안내
 
@@ -2315,6 +2535,7 @@ VALUES (
 토마톡 팀 드림
 
 © 2025 주식회사니즈퍼샌드. All rights reserved.',
+  '',
   '<p><span style="color: #ffffff;"> </span></p>
 <p><span style="color: #ffffff;"> </span></p>
 <p><span style="color: #ffffff;">테스트 진행 안내</span></p>
@@ -2352,15 +2573,23 @@ VALUES (
 <p><span style="color: #ffffff;">토마톡 팀 드림</span></p>
 <p><span style="color: #ffffff;"> </span></p>
 <p><span style="color: #ffffff;">© 2025 주식회사니즈퍼샌드. All rights reserved.</span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2025-05-26T00:00:00+09:00'::timestamptz,
+  NULL,
+  'upgrade',
+  '{}'::text[],
+  '{}'::text[],
+  '2025-05-26T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
-  '토마톡 TOTT 스테이킹풀 일정 연기 공지 | TomaTok TOTT Staking Pool Schedule Delay Notice',
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '7d7ca18f-08fa-5b4c-a07b-acad2733ca2c',
+  '20250415-25',
+  '토마톡 TOTT 스테이킹풀 일정 연기 공지',
+  'TomaTok TOTT Staking Pool Schedule Delay Notice',
   '2025.04.15 | 토마톡 TOTT 스테이킹풀 일정 연기 공지 | TomaTok TOTT Staking Pool Schedule Delay Notice',
   '안녕하세요, 토마톡 이용자 여러분!
 
@@ -2777,6 +3006,7 @@ Email: needspersand@tomatok.io
 TomaTok Team
 
 © 2025 Needspersand Co., Ltd. All rights reserved.',
+  '',
   '<p><span style="color: #ffffff;"> </span></p>
 <p><span style="color: #ffffff;"> </span></p>
 <p><span style="color: #ffffff;">안녕하세요, 토마톡 이용자 여러분!</span></p>
@@ -2931,15 +3161,23 @@ TomaTok Team
 <p><span style="color: #ffffff;">Contact and Support</span></p>
 <p><span style="color: #ffffff;">Email: needspersand@tomatok.io</span><br /><span style="color: #ffffff;">1-on-1 Inquiry</span><br /><span style="color: #ffffff;">TomaTok Team</span></p>
 <p><span style="color: #ffffff;">© 2025 Needspersand Co., Ltd. All rights reserved.</span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2025-04-15T00:00:00+09:00'::timestamptz,
+  NULL,
+  'general',
+  '{}'::text[],
+  '{}'::text[],
+  '2025-04-15T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
-  '토마톡에 관련된 전체 플랫폼 이용 안내 | TomaTok – Platform Participation Guidelines',
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  'c51aabfd-0f1b-5bf4-a5f5-d5b864e82fde',
+  '20250328-26',
+  '토마톡에 관련된 전체 플랫폼 이용 안내',
+  'TomaTok – Platform Participation Guidelines',
   '2025.03.28 | 토마톡에 관련된 전체 플랫폼 이용 안내 | TomaTok – Platform Participation Guidelines',
   '■ 토마톡에 관련된 전체 플랫폼 이용 안내
 
@@ -2986,6 +3224,7 @@ Participant Guidelines
 - If there is inappropriate behavior related to section ① or ②, the participant may lose all rights of participation. If harm is caused to the company or any included participants, the company may claim damages, and the participant may be held liable under civil and criminal law.
 
 TomaTok platform participants are considered to have acknowledged and agreed to these terms upon participation.',
+  '',
   '<p><span style="color: #ffffff;"> </span></p>
 <p><span style="color: #ffffff;">■ 토마톡에 관련된 전체 플랫폼 이용 안내</span></p>
 <p><span style="color: #ffffff;">참여자 안내 사항</span></p>
@@ -3000,15 +3239,23 @@ TomaTok platform participants are considered to have acknowledged and agreed to 
 <p class="p1"><span style="color: #ffffff;">② Grounds for Loss of Participation Rights in the TomaTok Platform</span></p>
 <p class="p1"><span style="color: #ffffff;">- Prohibition of defamatory speech or behavior (including toward the company, executives, or other participants).</span><br /><span style="color: #ffffff;">- Avoidance of concurrent involvement in competing or similar industries/platforms.</span><br /><span style="color: #ffffff;">- Avoidance of harmful actions (including against the company, executives, or other participants).</span><br /><span style="color: #ffffff;">- If there is inappropriate behavior related to section ① or ②, the participant may lose all rights of participation. If harm is caused to the company or any included participants, the company may claim damages, and the participant may be held liable under civil and criminal law.</span></p>
 <p class="p1"><span style="color: #ffffff;">TomaTok platform participants are considered to have acknowledged and agreed to these terms upon participation.</span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2025-03-28T00:00:00+09:00'::timestamptz,
+  NULL,
+  'general',
+  '{}'::text[],
+  '{}'::text[],
+  '2025-03-28T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  'd32bb1e3-6f6c-5c94-ae32-c8fd3888aca7',
+  '20250224-27',
   '개인정보 수집 및 이용 약관',
+  NULL,
   '2025.02.24 | 개인정보 수집 및 이용 약관',
   '개인정보 수집 및 이용 약관
 
@@ -3281,6 +3528,7 @@ Safari: 환경설정 → 개인정보 보호 → 쿠키 및 웹사이트 데이�
 최종 수정일: 2025년 5월 26일
 
 © 2025 주식회사니즈퍼샌드. All rights reserved.',
+  '',
   '<p class="p1"><span style="color: #ffffff;"></span></p>
 <p class="p1"><span style="color: #ffffff;">개인정보 수집 및 이용 약관</span></p>
 <p class="p2">
@@ -3475,15 +3723,23 @@ Safari: 환경설정 → 개인정보 보호 → 쿠키 및 웹사이트 데이�
 <p class="p1"><span style="color: #ffffff;">최종 수정일: 2025년 5월 26일</span></p>
 <p class="p2">
 <p class="p1"><span style="color: #ffffff;">© 2025 주식회사니즈퍼샌드. All rights reserved.</span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2025-02-24T00:00:00+09:00'::timestamptz,
+  NULL,
+  'general',
+  '{}'::text[],
+  '{}'::text[],
+  '2025-02-24T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  'fe46dc1b-eca8-5643-aa05-287842c765ab',
+  '20250224-28',
   '토마톡 서비스 이용약관',
+  NULL,
   '2025.02.24 | 토마톡 서비스 이용약관',
   '토마톡 서비스 이용약관
 
@@ -3666,6 +3922,7 @@ VALUES (
 최종 수정일: 2025년 5월 26일
 
 © 2025 주식회사니즈퍼샌드. All rights reserved.',
+  '',
   '<p class="p1">
 <p class="p1"><span style="color: #ffffff;">토마톡 서비스 이용약관</span></p>
 <p class="p2">
@@ -3778,15 +4035,23 @@ VALUES (
 <p class="p1"><span style="color: #ffffff;">최종 수정일: 2025년 5월 26일</span></p>
 <p class="p2">
 <p class="p1"><span style="color: #ffffff;">© 2025 주식회사니즈퍼샌드. All rights reserved.</span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2025-02-24T00:00:00+09:00'::timestamptz,
+  NULL,
+  'general',
+  '{}'::text[],
+  '{}'::text[],
+  '2025-02-24T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
-  '토마톡 TOTT 스테이킹풀 도입 예정 공지 | TomaTok TOTT Staking Pool Introduction Notice',
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '7e7db2a8-bc12-503e-a30a-aa0c053199a9',
+  '20250203-29',
+  '토마톡 TOTT 스테이킹풀 도입 예정 공지',
+  'TomaTok TOTT Staking Pool Introduction Notice',
   '2025.02.03 | 토마톡 TOTT 스테이킹풀 도입 예정 공지 | TomaTok TOTT Staking Pool Introduction Notice',
   '안녕하세요, 토마톡 이용자 여러분!
 
@@ -4058,6 +4323,7 @@ Email: needspersand@tomatok.io
 TomaTok Team
 
 © 2025 Needspersand Co., Ltd. All rights reserved.',
+  '',
   '<p><span style="color: #ffffff;"> </span></p>
 <p><span style="color: #ffffff;"> </span></p>
 <p><span style="color: #ffffff;">안녕하세요, 토마톡 이용자 여러분!</span></p>
@@ -4167,15 +4433,23 @@ TomaTok Team
 <p><span style="color: #ffffff;">Contact and Support</span></p>
 <p><span style="color: #ffffff;">Email: needspersand@tomatok.io</span><br /><span style="color: #ffffff;">1-on-1 Inquiry</span><br /><span style="color: #ffffff;">TomaTok Team</span></p>
 <p><span style="color: #ffffff;">© 2025 Needspersand Co., Ltd. All rights reserved.</span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2025-02-03T00:00:00+09:00'::timestamptz,
+  NULL,
+  'general',
+  '{}'::text[],
+  '{}'::text[],
+  '2025-02-03T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '86b730f2-f778-5af6-a425-652af3ad9bf5',
+  '20250201-30',
   'TomaTok 소개',
+  NULL,
   '2025.02.01 | TomaTok 소개',
   '안녕하세요, TomaTok 이용자 여러분!
 
@@ -4276,6 +4550,7 @@ TomaTok과 함께 새로운 소통의 경험을 시작해보세요. 전 세계 �
 TomaTok 팀 드림
 
 © 2025 주식회사니즈퍼샌드. All rights reserved.',
+  '',
   '<p><span style="color: #ffffff;"> </span></p>
 <p><span style="color: #ffffff;"> </span></p>
 <p><span style="color: #ffffff;"> </span></p>
@@ -4342,15 +4617,23 @@ TomaTok 팀 드림
 <p><span style="color: #ffffff;">TomaTok 팀 드림</span></p>
 <p><span style="color: #ffffff;"> </span></p>
 <p><span style="color: #ffffff;">© 2025 주식회사니즈퍼샌드. All rights reserved.</span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2025-02-01T00:00:00+09:00'::timestamptz,
+  NULL,
+  'general',
+  '{}'::text[],
+  '{}'::text[],
+  '2025-02-01T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
-  '토마톡에 관련된 전체 플랫폼 이용 안내 | TomaTok – Platform Participation Guidelines',
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '8add6461-959d-50cf-a9e3-f0aefc221fe9',
+  '20250101-31',
+  '토마톡에 관련된 전체 플랫폼 이용 안내',
+  'TomaTok – Platform Participation Guidelines',
   '2025.01.01 | 토마톡에 관련된 전체 플랫폼 이용 안내 | TomaTok – Platform Participation Guidelines',
   '■ 토마톡에 관련된 전체 플랫폼 이용 안내
 
@@ -4393,6 +4676,7 @@ Participant Guidelines
 - If there is inappropriate behavior related to section ① or ②, the participant may lose all rights of participation, and the contract may be automatically terminated without prior notice. If harm is caused to the company or any included participants, the company may claim damages, and the participant may be held liable under civil and criminal law.
 
 TomaTok platform participants are considered to have acknowledged and agreed to these terms upon participation.',
+  '',
   '<p class="font-claude-response-body whitespace-normal break-words"><span style="color: #ffffff;"><strong>■ 토마톡에 관련된 전체 플랫폼 이용 안내</strong></span></p>
 <p class="font-claude-response-body whitespace-normal break-words"><span style="color: #ffffff;"><strong>참여자 안내 사항</strong></span></p>
 <p class="font-claude-response-body whitespace-normal break-words"><span style="color: #ffffff;"><strong>① 토마톡 및 전체 플랫폼의 참여자 안내 사항</strong></span></p>
@@ -4430,15 +4714,23 @@ TomaTok platform participants are considered to have acknowledged and agreed to 
 <li class="whitespace-normal break-words"><span style="color: #ffffff;">If there is inappropriate behavior related to section ① or ②, the participant may lose all rights of participation, and the contract may be automatically terminated without prior notice. If harm is caused to the company or any included participants, the company may claim damages, and the participant may be held liable under civil and criminal law.</span></li>
 </ul>
 <p class="font-claude-response-body whitespace-normal break-words"><span style="color: #ffffff;">TomaTok platform participants are considered to have acknowledged and agreed to these terms upon participation.</span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2025-01-01T00:00:00+09:00'::timestamptz,
+  NULL,
+  'general',
+  '{}'::text[],
+  '{}'::text[],
+  '2025-01-01T00:00:00+09:00',
   true
 );
 
-INSERT INTO notices (title, full_title, content, content_html, links, images, published_at, is_published)
-VALUES (
-  '토마콩즈 T2E 서비스 리뉴얼 및 토마톡 앱 내 통합 안내 | Notice: TomaBeans T2E Service Renewal and Availability within the TomaTok App',
+INSERT INTO notices (
+  id, slug, title, title_en, full_title,
+  content, content_en, content_html, content_html_en,
+  category, links, images, published_at, is_published
+) VALUES (
+  '2ca5bd9a-7cbf-50c6-a3b3-a3a6a5aa99f0',
+  '20260210-32',
+  '토마콩즈 T2E 서비스 리뉴얼 및 토마톡 앱 내 통합 안내',
+  'Notice: TomaBeans T2E Service Renewal and Availability within the TomaTok App',
   '2026.02.10 | 토마콩즈 T2E 서비스 리뉴얼 및 토마톡 앱 내 통합 안내 | Notice: TomaBeans T2E Service Renewal and Availability within the TomaTok App',
   '안녕하세요, TomaTok 이용자 여러분!
 토마콩즈 T2E 서비스 리뉴얼 및 토마톡 앱 내 통합 예정에 대한 안내를 드립니다.
@@ -4503,6 +4795,7 @@ or email (needspersand@tomatok.io).
 Thank you for your continued support of TomaTok.
 
 TomaTok Team',
+  'Hello, TomaTok Users! We would like to share an important update regarding the TomaBeans T2E service . Service Update Due to changes in the operating environment and platform policies, the existing Telegram-based TomaBeans T2E service has reached a point where a transition to a paid structure has become unavoidable. To ensure a more stable and sustainable service, we have decided to fully renew the TomaBeans T2E service and launch it anew on the TomaTok app . Key Highlights - Changes in the operation of the Telegram-based T2E service - Full renewal of the TomaBeans T2E service - Upcoming launch of new T2E content within the TomaTok app Schedule The detailed launch date and usage instructions will be announced in a future notice. We appreciate your understanding as we make these improvements to deliver a better service experience. For any inquiries, please contact us via the in-app 1:1 inquiry or email (needspersand@tomatok.io). Thank you for your continued support of TomaTok. TomaTok Team',
   '<p><span style="color: #ffffff;">안녕하세요, TomaTok 이용자 여러분!</span><br /><span style="color: #ffffff;"><strong>토마콩즈 T2E 서비스 리뉴얼 및 토마톡 앱 내 통합 예정</strong>에 대한 안내를 드립니다.</span></p>
 <h4><span style="color: #ffffff;">안내 사항</span></h4>
 <p><span style="color: #ffffff;">기존 텔레그램을 통해 운영되던 <strong>토마콩즈 T2E 서비스</strong>는</span><br /><span style="color: #ffffff;">운영 환경 및 정책 변경으로 인해 <strong>유료 전환이 불가피한 상황</strong>이 발생하게 되었습니다.</span></p>
@@ -4513,9 +4806,8 @@ TomaTok Team',
 <p><span style="color: #ffffff;">론칭 일정 및 상세 이용 방법은</span><br /><span style="color: #ffffff;">추후 공지사항을 통해 안내드릴 예정입니다.</span></p>
 <p><span style="color: #ffffff;">이번 변경은 더 나은 서비스 환경과 사용자 경험을 제공하기 위한 결정이오니</span><br /><span style="color: #ffffff;">이용자 여러분의 많은 양해와 관심을 부탁드립니다.</span><br /><span style="color: #ffffff;">문의사항은 앱 내 1:1 문의하기 또는 이메일(needspersand@tomatok.io)로 접수해 주세요.</span></p>
 <p><span style="color: #ffffff;">항상 TomaTok을 이용해 주셔서 감사합니다.</span></p>
-<p><span style="color: #ffffff;">TomaTok 팀 드림</span></p>
-<hr />
-<p><span style="color: #ffffff;">Hello, TomaTok Users!</span><br /><span style="color: #ffffff;">We would like to share an important update regarding the <strong>TomaBeans T2E service</strong>.</span></p>
+<p><span style="color: #ffffff;">TomaTok 팀 드림</span></p>',
+  '<p><span style="color: #ffffff;">Hello, TomaTok Users!</span><br /><span style="color: #ffffff;">We would like to share an important update regarding the <strong>TomaBeans T2E service</strong>.</span></p>
 <h4><span style="color: #ffffff;">Service Update</span></h4>
 <p><span style="color: #ffffff;">Due to changes in the operating environment and platform policies,</span><br /><span style="color: #ffffff;">the existing <strong>Telegram-based TomaBeans T2E service</strong> has reached a point</span><br /><span style="color: #ffffff;">where a transition to a paid structure has become unavoidable.</span></p>
 <p><span style="color: #ffffff;">To ensure a more stable and sustainable service,</span><br /><span style="color: #ffffff;">we have decided to <strong>fully renew the TomaBeans T2E service</strong></span><br /><span style="color: #ffffff;">and launch it anew on the <strong>TomaTok app</strong>.</span></p>
@@ -4526,9 +4818,9 @@ TomaTok Team',
 <p><span style="color: #ffffff;">We appreciate your understanding as we make these improvements</span><br /><span style="color: #ffffff;">to deliver a better service experience.</span><br /><span style="color: #ffffff;">For any inquiries, please contact us via the in-app 1:1 inquiry</span><br /><span style="color: #ffffff;">or email (needspersand@tomatok.io).</span></p>
 <p><span style="color: #ffffff;">Thank you for your continued support of TomaTok.</span></p>
 <p><span style="color: #ffffff;">TomaTok Team</span></p>',
-  ARRAY[]::text[],
-  ARRAY[]::text[],
-  '2026-02-10T00:00:00+09:00'::timestamptz,
+  'upgrade',
+  '{}'::text[],
+  '{}'::text[],
+  '2026-02-10T00:00:00+09:00',
   true
 );
-

@@ -159,7 +159,7 @@ export default async function NoticeDetailPage({
           </p>
         )}
 
-        <NoticeAdminActions noticeId={id} locale={effectiveLocale} />
+        <NoticeAdminActions noticeId={notice.id} locale={effectiveLocale} />
       </div>
     </article>
   );

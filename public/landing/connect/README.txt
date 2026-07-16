@@ -1,10 +1,5 @@
-Put Tomatok SVG icons here (max 10).
+Tomatok brand mark used on hover morph (hero bubbles → seed).
 
-Current:
-  tomatok_icon.svg
+  tomatok_icon.svg  — tomato mark (no wordmark)
 
-Optional extras (used if present):
-  01.svg … 10.svg
-
-About section keeps icons static (no bobbing) and draws connection lines.
-If only one SVG exists, it is repeated as a linked constellation.
+Replace this file to change the hover icon.

@@ -54,6 +54,7 @@ type Motion = {
   rot: number;
   enter: number;
   echo: number;
+  morph: number; // 0 bubble → 1 tomato seed
 };
 
 type Beam = {
@@ -73,6 +74,8 @@ type FloatSpec = {
   driftSpeed: number;
   wobble: number;
 };
+
+const TOMATOK_ICON = '/landing/connect/tomatok_icon.svg';
 
 function useIsMobile(maxWidth = 860) {
   const [mobile, setMobile] = useState(false);
@@ -147,6 +150,7 @@ export default function HeroLanguageBubbles() {
       rot: 0,
       enter: 0,
       echo: 0,
+      morph: 0,
     }))
   );
   const [beamView, setBeamView] = useState<Beam[]>([]);
@@ -174,6 +178,7 @@ export default function HeroLanguageBubbles() {
         rot: 0,
         enter: 0,
         echo: 0,
+        morph: 0,
       }))
     );
   }, [bubbles, isMobile]);
@@ -265,31 +270,31 @@ export default function HeroLanguageBubbles() {
         const f = floats.current[i];
         const near = i === hit;
         const target = near ? 1 : 0;
-        const speed = near ? 0.035 : 0.045;
+        // Morph to tomato: a bit slower in, quicker out
+        const speed = near ? 0.08 : 0.1;
         s.progress += (target - s.progress) * speed;
 
         const p = s.progress;
         const e = p * p * (3 - 2 * p);
 
         const bob =
-          Math.sin(elapsed * f.bobSpeed + f.phase) * f.bobAmp +
+          Math.sin(elapsed * f.bobSpeed + f.phase) * f.bobAmp * (1 - e * 0.35) +
           Math.sin(elapsed * f.bobSpeed * 1.7 + f.phase * 0.6) *
             f.bobAmp *
-            0.28;
+            0.28 *
+            (1 - e);
         const sway =
-          Math.cos(elapsed * f.swaySpeed + f.phase * 1.2) * f.swayAmp +
-          Math.sin(elapsed * f.driftSpeed + f.phase) * f.driftAmp;
+          Math.cos(elapsed * f.swaySpeed + f.phase * 1.2) * f.swayAmp * (1 - e) +
+          Math.sin(elapsed * f.driftSpeed + f.phase) * f.driftAmp * (1 - e);
         const driftY =
           Math.cos(elapsed * f.driftSpeed * 0.9 + f.phase * 1.7) *
           f.driftAmp *
-          0.7;
+          0.7 *
+          (1 - e);
 
-        let dx = sway + Math.cos(s.angle) * s.dist * e * 0.45;
-        let dy =
-          bob +
-          driftY -
-          e * (22 + s.dist * 0.35) +
-          Math.sin(s.angle) * s.dist * e * 0.25;
+        // Stay in place while collapsing into the seed
+        let dx = sway;
+        let dy = bob + driftY;
 
         const en = enter.current[i];
         const enE = en * en * (3 - 2 * en);
@@ -316,22 +321,21 @@ export default function HeroLanguageBubbles() {
         dy += ny * (1 - e);
 
         const ec = echo.current[i];
-        const opacity = Math.min(1, enE) * (1 - e * 0.92);
+        const opacity = Math.min(1, enE);
         const scale =
-          (0.88 + enE * 0.12) * (1 + e * 0.12) * (1 + ec * 0.08);
+          (0.88 + enE * 0.12) * (1 - e * 0.42) * (1 + ec * 0.06 * (1 - e));
         const rot =
-          Math.sin(elapsed * 0.7 + f.phase) * f.wobble +
-          e * 6 * (i % 2 === 0 ? 1 : -1);
+          Math.sin(elapsed * 0.7 + f.phase) * f.wobble * (1 - e) +
+          e * 12 * (i % 2 === 0 ? 1 : -1);
 
         if (isMobile) {
           const baseTop = (b.y / 100) * h;
           const minTop = h * 0.08;
           const maxTop = h * 0.28;
           dy = Math.max(minTop - baseTop, Math.min(dy, maxTop - baseTop));
-          // Keep away from the center title column
           const sidePush = b.x < 50 ? -1 : 1;
           const centerClear = Math.max(0, 0.28 - Math.abs(b.x / 100 - 0.5));
-          dx += sidePush * centerClear * w * 0.12;
+          dx += sidePush * centerClear * w * 0.12 * (1 - e);
         }
 
         pos.current[i] = {
@@ -346,7 +350,8 @@ export default function HeroLanguageBubbles() {
           scale,
           rot,
           enter: enE,
-          echo: ec,
+          echo: ec * (1 - e),
+          morph: e,
         };
       });
 
@@ -429,19 +434,34 @@ export default function HeroLanguageBubbles() {
           rot: 0,
           enter: 0,
           echo: 0,
+          morph: 0,
         };
+        const seed = m.morph > 0.55;
         return (
           <div
             key={b.id}
-            className={`hero-bubble hero-bubble--${b.size}${m.echo > 0.2 ? ' is-echo' : ''}`}
+            className={`hero-bubble hero-bubble--${b.size}${m.echo > 0.2 ? ' is-echo' : ''}${seed ? ' is-seed' : ''}`}
             style={{
               left: `${b.x}%`,
               top: `${b.y}%`,
               opacity: m.opacity,
               transform: `translate(-50%, -50%) translate(${m.dx}px, ${m.dy}px) rotate(${b.rotate + m.rot}deg) scale(${m.scale})`,
+              ['--morph' as string]: String(m.morph),
             }}
           >
-            <span className="hero-bubble-text">{b.text}</span>
+            <span
+              className="hero-bubble-text"
+              style={{ opacity: Math.max(0, 1 - m.morph * 1.35) }}
+            >
+              {b.text}
+            </span>
+            <span
+              className="hero-bubble-seed"
+              style={{ opacity: Math.min(1, m.morph * 1.4) }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={TOMATOK_ICON} alt="" width={22} height={20} />
+            </span>
           </div>
         );
       })}

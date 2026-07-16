@@ -1,13 +1,18 @@
 "use client";
 
 import { useEffect } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   LOCALE_STORAGE_KEY,
   parseLocale,
   withLocale,
   type Locale,
 } from "@/lib/locale";
+
+function currentSearch(): string {
+  if (typeof window === "undefined") return "";
+  return window.location.search.replace(/^\?/, "");
+}
 
 export default function LocaleTabs({
   locale,
@@ -18,7 +23,6 @@ export default function LocaleTabs({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     try {
@@ -30,18 +34,19 @@ export default function LocaleTabs({
 
   // Restore preferred language when URL has no lang
   useEffect(() => {
-    if (searchParams.get("lang")) return;
+    const params = new URLSearchParams(currentSearch());
+    if (params.get("lang")) return;
     try {
       const saved = parseLocale(localStorage.getItem(LOCALE_STORAGE_KEY));
       if (saved === "en") {
-        const q = searchParams.toString();
+        const q = params.toString();
         const path = q ? `${pathname}?${q}` : pathname;
         router.replace(withLocale(path, "en"));
       }
     } catch {
       // ignore
     }
-  }, [pathname, router, searchParams]);
+  }, [pathname, router]);
 
   function setLocale(next: Locale) {
     try {
@@ -49,7 +54,7 @@ export default function LocaleTabs({
     } catch {
       // ignore
     }
-    const q = searchParams.toString();
+    const q = currentSearch();
     const path = q ? `${pathname}?${q}` : pathname;
     router.push(withLocale(path, next));
   }
@@ -66,6 +71,7 @@ export default function LocaleTabs({
               : "text-[var(--muted)] hover:text-[var(--foreground)]"
           }`}
           aria-pressed={locale === "ko"}
+          aria-label="한국어"
         >
           KO
         </button>
@@ -81,6 +87,7 @@ export default function LocaleTabs({
               : "text-[var(--muted)] hover:text-[var(--foreground)]"
           }`}
           aria-pressed={locale === "en"}
+          aria-label="English"
         >
           EN
         </button>

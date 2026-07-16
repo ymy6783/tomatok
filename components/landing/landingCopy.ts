@@ -123,14 +123,27 @@ export const LANDING_I18N: [ko: string, en: string][] = [
   ],
 
   // Hero / about / sections
-  ["190개국 실시간 자동 번역", "Real-time auto-translation in 190+ countries"],
   [
-    "번역, 지갑, AI, 리워드가 하나로 연결된 글로벌 메신저.<br>언어의 장벽 없이, 세상 모든 대화를 시작하세요.",
-    "A global messenger that connects translation, wallet, AI, and rewards.<br>Start every conversation—without a language barrier.",
+    "Every conversation deserves to be understood.",
+    "Every conversation deserves to be understood.",
   ],
-  ["지원 국가", "Countries"],
-  ["지원 언어", "Languages"],
-  ["스토어 평점", "Store rating"],
+  [
+    "언어의 장벽 없이, 세상 모든 대화를 시작하세요.",
+    "Every conversation deserves to be understood.",
+  ],
+  ["실제로 이렇게 씁니다", "This is how it feels."],
+  [
+    "Chat부터 Wallet까지, 한 장면씩 경험하세요.",
+    "From Chat to Wallet—one scene at a time.",
+  ],
+  [
+    "Ready to connect the world?",
+    "Ready to connect the world?",
+  ],
+  [
+    "Download TOMATOK",
+    "Ready to connect the world?",
+  ],
   [
     "대화, 번역, 자산, AI, 리워드를 하나의 경험으로 연결한<br>글로벌 커뮤니케이션 플랫폼입니다.",
     "A global communication platform that unites chat, translation,<br>assets, AI, and rewards in one experience.",
@@ -153,8 +166,9 @@ export const LANDING_I18N: [ko: string, en: string][] = [
   ],
   [
     "52개 언어 실시간 자동 번역 엔진.",
-    "Real-time auto-translation across 52 languages.",
+    "Real-time auto-translation across 120+ languages.",
   ],
+  ["52개 언어", "120+ languages"],
   ["포인트와 TOTT 코인 통합 관리.", "Unified points and TOTT management."],
   [
     "메신저 안에서 바로 끝내는 간편 결제.",
@@ -237,8 +251,8 @@ export const LANDING_I18N: [ko: string, en: string][] = [
     "Which languages does TOMATOK support?",
   ],
   [
-    "한국어, 영어, 일본어, 중국어를 포함한 52개 언어를 실시간 자동 번역으로 지원합니다.",
-    "We support real-time auto-translation across 52 languages, including Korean, English, Japanese, and Chinese.",
+    "한국어, 영어, 일본어, 중국어를 포함한 120개 이상 언어를 실시간 자동 번역으로 지원합니다.",
+    "We support real-time auto-translation across 120+ languages, including Korean, English, Japanese, and Chinese.",
   ],
   ["TOTT 코인은 어떻게 획득하나요?", "How do I earn TOTT?"],
   [

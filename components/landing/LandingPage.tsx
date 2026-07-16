@@ -1,22 +1,21 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { Suspense, useEffect, useMemo, useState } from "react";
-import { createPortal } from "react-dom";
 import "@/app/landing.css";
 import { getLandingBodyHtml } from "@/components/landing/landingHtml";
 import { landingEmptyNewsTitle } from "@/components/landing/landingCopy";
+import ConnectionStory from "@/components/landing/ConnectionStory";
+import FeatureExperience from "@/components/landing/FeatureExperience";
+import FutureTimeline from "@/components/landing/FutureTimeline";
+import HeroLanguageBubbles from "@/components/landing/HeroLanguageBubbles";
 import LandingLocaleSync from "@/components/landing/LandingLocaleSync";
-import TranslationDemo from "@/components/landing/TranslationDemo";
+import UseCasesGrid from "@/components/landing/UseCasesGrid";
+import WhatIsBento from "@/components/landing/WhatIsBento";
+import WhyTomatok from "@/components/landing/WhyTomatok";
 import LocaleTabs from "@/components/LocaleTabs";
 import type { Locale } from "@/lib/locale";
 import { withLocale } from "@/lib/locale";
 import { categoryLabel } from "@/lib/noticeCategories";
-
-const HeroParticleNetwork = dynamic(
-  () => import("@/components/HeroParticleNetwork"),
-  { ssr: false }
-);
 
 export type LandingNewsItem = {
   id: string;
@@ -25,7 +24,14 @@ export type LandingNewsItem = {
   category?: string | null;
 };
 
-const TRANSLATION_MARKER = "<!--TRANSLATION_SECTION-->";
+const MARKERS = [
+  "<!--PLAN_STORY-->",
+  "<!--PLAN_BENTO-->",
+  "<!--PLAN_WHY-->",
+  "<!--PLAN_FEATURES-->",
+  "<!--PLAN_USECASES-->",
+  "<!--PLAN_FUTURE-->",
+] as const;
 
 function renderExpFeatures(raw?: string) {
   if (!raw) return "";
@@ -113,6 +119,22 @@ function buildNewsGrid(news: LandingNewsItem[], locale: Locale) {
     .join("\n");
 }
 
+function splitByMarkers(html: string) {
+  const parts: string[] = [];
+  let cursor = 0;
+  for (const marker of MARKERS) {
+    const idx = html.indexOf(marker, cursor);
+    if (idx < 0) {
+      parts.push(html.slice(cursor));
+      return { parts, ok: false as const };
+    }
+    parts.push(html.slice(cursor, idx));
+    cursor = idx + marker.length;
+  }
+  parts.push(html.slice(cursor));
+  return { parts, ok: true as const };
+}
+
 export default function LandingPage({
   news,
   locale,
@@ -127,39 +149,39 @@ export default function LandingPage({
     );
   }, [news, locale]);
 
-  const { beforeXlate, afterXlate } = useMemo(() => {
-    const idx = html.indexOf(TRANSLATION_MARKER);
-    if (idx < 0) {
-      return { beforeXlate: html, afterXlate: "" };
+  const chunks = useMemo(() => {
+    const { parts, ok } = splitByMarkers(html);
+    if (!ok || parts.length !== MARKERS.length + 1) {
+      return null;
     }
     return {
-      beforeXlate: html.slice(0, idx),
-      afterXlate: html.slice(idx + TRANSLATION_MARKER.length),
+      beforeStory: parts[0],
+      betweenStoryBento: parts[1],
+      betweenBentoWhy: parts[2],
+      betweenWhyFeatures: parts[3],
+      betweenFeaturesUse: parts[4],
+      betweenUseFuture: parts[5],
+      afterFuture: parts[6],
     };
   }, [html]);
 
-  const [heroEl, setHeroEl] = useState<HTMLElement | null>(null);
-  const [localeEl, setLocaleEl] = useState<HTMLElement | null>(null);
-  const [localeMobileEl, setLocaleMobileEl] = useState<HTMLElement | null>(
-    null
-  );
-
-  useEffect(() => {
-    // Defer so DSIH nodes exist; re-query after locale/html swaps
-    const id = requestAnimationFrame(() => {
-      setHeroEl(document.querySelector<HTMLElement>(".landing-root .hero"));
-      setLocaleEl(document.getElementById("landingLocaleMount"));
-      setLocaleMobileEl(document.getElementById("landingLocaleMobileMount"));
-    });
-    return () => cancelAnimationFrame(id);
-  }, [html]);
+  const [showFloatDownload, setShowFloatDownload] = useState(false);
 
   useEffect(() => {
     const header = document.getElementById("siteHeader");
     const onScroll = () => {
-      header?.classList.toggle("scrolled", window.scrollY > 20);
+      const y = window.scrollY;
+      header?.classList.toggle("scrolled", y > 20);
+      const hero = document.querySelector(".hero") as HTMLElement | null;
+      const download = document.getElementById("download");
+      const pastHero = hero ? y > hero.offsetHeight * 0.55 : y > 420;
+      const nearDownload = download
+        ? download.getBoundingClientRect().top < window.innerHeight * 0.85
+        : false;
+      setShowFloatDownload(pastHero && !nearDownload && window.innerWidth <= 768);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
     onScroll();
 
     const burgerBtn = document.getElementById("burgerBtn");
@@ -199,18 +221,6 @@ export default function LandingPage({
     };
     document.querySelector(".faq-list")?.addEventListener("click", onFaqClick);
 
-    const sliderNav = document.querySelector(".slider-nav");
-    const track = document.getElementById("previewTrack");
-    const onSlider = (e: Event) => {
-      const btn = (e.target as HTMLElement).closest(".slider-btn");
-      if (!btn || !sliderNav || !track) return;
-      const buttons = [...sliderNav.querySelectorAll(".slider-btn")];
-      const idx = buttons.indexOf(btn as Element);
-      const dir = idx === 0 ? -1 : 1;
-      track.scrollBy({ left: dir * 280, behavior: "smooth" });
-    };
-    sliderNav?.addEventListener("click", onSlider);
-
     const items = document.querySelectorAll(".exp-item");
     const dots = document.querySelectorAll(".exp-dots span");
     const io = new IntersectionObserver(
@@ -236,12 +246,12 @@ export default function LandingPage({
 
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
       burgerBtn?.removeEventListener("click", onBurger);
       mobileLinks.forEach((a) => a.removeEventListener("click", closeMobile));
       document
         .querySelector(".faq-list")
         ?.removeEventListener("click", onFaqClick);
-      sliderNav?.removeEventListener("click", onSlider);
       io.disconnect();
     };
   }, [html]);
@@ -252,59 +262,62 @@ export default function LandingPage({
         <LandingLocaleSync />
       </Suspense>
       <div className="landing-root" lang={locale}>
-        <div dangerouslySetInnerHTML={{ __html: beforeXlate }} />
-        <section className="xlate" id="translation">
-          <div className="section-head wrap">
-            <span className="eyebrow">Live Translation</span>
-            <h2>
-              {locale === "en" ? (
-                <>
-                  One screen in Korean.
-                  <br />
-                  One in Vietnamese.
-                </>
-              ) : (
-                <>
-                  한 화면은 한국어,
-                  <br />
-                  한 화면은 베트남어
-                </>
-              )}
-            </h2>
-            <p>
-              {locale === "en"
-                ? "Grandma and grandson each write in their language—and receive the other in theirs."
-                : "할머니와 손자가 각자 언어로 보내도, 상대에게는 내 언어로 도착합니다."}
-            </p>
-          </div>
-          <div className="xlate-mount wrap">
-            <TranslationDemo locale={locale} />
-          </div>
-        </section>
-        <div dangerouslySetInnerHTML={{ __html: afterXlate }} />
+        <div className="landing-hero-fx" aria-hidden="true">
+          <HeroLanguageBubbles />
+        </div>
+        {chunks ? (
+          <>
+            <div dangerouslySetInnerHTML={{ __html: chunks.beforeStory }} />
+            <ConnectionStory locale={locale} />
+            {chunks.betweenStoryBento ? (
+              <div
+                dangerouslySetInnerHTML={{ __html: chunks.betweenStoryBento }}
+              />
+            ) : null}
+            <WhatIsBento locale={locale} />
+            {chunks.betweenBentoWhy ? (
+              <div
+                dangerouslySetInnerHTML={{ __html: chunks.betweenBentoWhy }}
+              />
+            ) : null}
+            <WhyTomatok locale={locale} />
+            {chunks.betweenWhyFeatures ? (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: chunks.betweenWhyFeatures,
+                }}
+              />
+            ) : null}
+            <FeatureExperience locale={locale} />
+            {chunks.betweenFeaturesUse ? (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: chunks.betweenFeaturesUse,
+                }}
+              />
+            ) : null}
+            <UseCasesGrid locale={locale} />
+            {chunks.betweenUseFuture ? (
+              <div
+                dangerouslySetInnerHTML={{ __html: chunks.betweenUseFuture }}
+              />
+            ) : null}
+            <FutureTimeline locale={locale} />
+            <div dangerouslySetInnerHTML={{ __html: chunks.afterFuture }} />
+          </>
+        ) : (
+          <div dangerouslySetInnerHTML={{ __html: html }} />
+        )}
       </div>
-      {localeEl &&
-        createPortal(
-          <Suspense fallback={null}>
-            <LocaleTabs locale={locale} variant="compact" />
-          </Suspense>,
-          localeEl
-        )}
-      {localeMobileEl &&
-        createPortal(
-          <Suspense fallback={null}>
-            <LocaleTabs locale={locale} variant="compact" />
-          </Suspense>,
-          localeMobileEl
-        )}
-      {heroEl &&
-        createPortal(
-          <HeroParticleNetwork
-            align="center"
-            logoMaskSrc="/tomatok-logo-mask.svg"
-          />,
-          heroEl
-        )}
+      <div className="landing-locale-dock" aria-label="Language">
+        <LocaleTabs locale={locale} variant="compact" />
+      </div>
+      <a
+        className={`landing-float-download${showFloatDownload ? " is-visible" : ""}`}
+        href="#download"
+      >
+        {locale === "en" ? "Download App" : "앱 다운로드"}
+      </a>
     </>
   );
 }

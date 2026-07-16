@@ -1,0 +1,39 @@
+---
+description: Tomatok 사이트 — 섹션 단위 UX, 공지 CMS 분리, 자체 리뷰 (힐링펫 Expo와 별개)
+alwaysApply: true
+---
+
+# Tomatok 사이트 워크플로
+
+문서: `docs/tomatok-workflow.md` · 섹션 목록: `docs/sections.registry.md`
+
+힐링펫(Expo) 규칙과 섞지 말 것. 여기는 Next.js 랜딩 + Supabase 공지.
+
+## 목표
+
+랜딩 **UI/UX·카피 개선**. 구현 후 브라우저 스크린샷을 직접 보고 체크리스트로 2~3회 수정.
+
+| 영역 | 진실 |
+|------|------|
+| 랜딩 | 코드 (`components/landing/*`) |
+| 공지 본문 | Supabase 관리자 |
+
+## 작업 단위 = 섹션
+
+`docs/sections.registry.md` 기준으로 **한 섹션만** 추가·수정·삭제.  
+Figma는 섹션 frame(`?node-id=`)만. 파일 전체 URL만 있으면 어떤 섹션인지 확인.
+
+## 코드
+
+- 카피 → `landingCopy.ts`
+- 인터랙션 → React 컴포넌트 (`TranslationDemo` 패턴). DSIH 노드에 포탈하지 말 것
+- 손대는 섹션부터 `landingHtml.ts`에서 컴포넌트 분리 권장
+
+## UX 리뷰 (필수)
+
+첫 뷰포트 과밀 금지 / 섹션당 목적 하나 / 카드 남발 금지 / KO·EN·모바일 확인.  
+사용자 프론트 디자인 규칙 준수. 다른 AI에 캡처 넘기게 두지 말 것.
+
+## 이동 중
+
+push → Vercel Preview/Production URL.

@@ -1,47 +1,27 @@
 'use client';
 
 /**
- * HeroParticleNetwork
- * --------------------
- * Self-contained, drop-in Hero background. Does not touch any existing
- * layout — mount it as an absolutely-positioned first child of a
- * `position: relative` Hero section, behind your existing header/text/buttons.
- *
- * Usage:
- *   import dynamic from 'next/dynamic';
- *   const HeroParticleNetwork = dynamic(() => import('@/components/HeroParticleNetwork'), { ssr: false });
- *
- *   <section style={{ position: 'relative' }}>
- *     <HeroParticleNetwork align="right" />
- *     <div style={{ position: 'relative', zIndex: 1 }}>
- *       ...existing header / copy / buttons, unchanged...
- *     </div>
- *   </section>
- *
- * Requires: three, @react-three/fiber, @react-three/drei
- * Expects a shape-reference image at /public/tomatok-logo-mask.png
- * (PNG with alpha, or a dark silhouette on a light/transparent field).
- * The image is only sampled for coordinates — it is never rendered.
+ * Soft constellation behind the hero — warm glow orbs, faint curved links,
+ * mouse proximity lighting (listens on window so CTAs stay clickable).
  */
 
-import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
+import { useEffect, useMemo, useRef, useState, useCallback, type MutableRefObject } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
-/* ---------------------------------------------------------------- */
-/* Config                                                            */
-/* ---------------------------------------------------------------- */
-
-const PALETTE = ['#FF8A65', '#FF6F91', '#F38AD3', '#B39DFF', '#82B1FF'] as const;
-const COLOR_WEIGHTS = [0.27, 0.26, 0.22, 0.13, 0.12];
-const GROWTH_DURATION = 5.2;
-const MAX_CONNECTIONS = 130;
-const CURVE_SEGMENTS = 8;
-const MAX_PULSES = 10;
+/* Warm Tomatok palette — avoid purple “AI network” look */
+const PALETTE = ['#E8453C', '#FF6B5A', '#FF8F7A', '#FFB39A', '#FFD4C4'] as const;
+const COLOR_WEIGHTS = [0.22, 0.28, 0.24, 0.16, 0.1];
+const GROWTH_DURATION = 4.6;
+const MAX_CONNECTIONS = 72;
+const CURVE_SEGMENTS = 12;
+const MAX_PULSES = 8;
+const MOUSE_RADIUS = 6.5;
 
 interface ParticleData {
   id: number;
   position: THREE.Vector3;
+  home: THREE.Vector3;
   target: THREE.Vector3 | null;
   color: THREE.Color;
   size: number;
@@ -64,10 +44,6 @@ interface PulseData {
   speed: number;
 }
 
-/* ---------------------------------------------------------------- */
-/* Logo silhouette sampling                                          */
-/* ---------------------------------------------------------------- */
-
 function shuffle<T>(arr: T[]): T[] {
   const a = arr.slice();
   for (let i = a.length - 1; i > 0; i--) {
@@ -77,8 +53,6 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
-/** Loads the mask image, samples alpha/brightness, returns normalized
- *  (-1..1) target points. Never renders the image itself. */
 function useLogoTargets(src: string, count: number) {
   const [targets, setTargets] = useState<THREE.Vector3[] | null>(null);
 
@@ -110,7 +84,6 @@ function useLogoTargets(src: string, count: number) {
           const i = (y * size + x) * 4;
           const alpha = data[i + 3];
           const lum = (data[i] + data[i + 1] + data[i + 2]) / 3;
-          // Prefer real alpha; fall back to "dark pixel = shape" for opaque images.
           const w2 = alpha > 10 ? alpha / 255 : lum < 200 ? 1 - lum / 255 : 0;
           if (w2 > 0.2) candidates.push({ x, y });
         }
@@ -125,11 +98,10 @@ function useLogoTargets(src: string, count: number) {
       const pts = picked.map((p) => {
         const nx = (p.x / size - 0.5) * 2;
         const ny = -(p.y / size - 0.5) * 2;
-        const nz = (Math.random() - 0.5) * 0.12;
-        // small per-point jitter so the silhouette isn't grid-hard
+        const nz = (Math.random() - 0.5) * 0.18;
         return new THREE.Vector3(
-          nx + (Math.random() - 0.5) * 0.02,
-          ny + (Math.random() - 0.5) * 0.02,
+          nx + (Math.random() - 0.5) * 0.03,
+          ny + (Math.random() - 0.5) * 0.03,
           nz
         );
       });
@@ -149,10 +121,6 @@ function useLogoTargets(src: string, count: number) {
   return targets;
 }
 
-/* ---------------------------------------------------------------- */
-/* Shaders — soft glowing point sprites (no post-process blur)       */
-/* ---------------------------------------------------------------- */
-
 const particleVertexShader = `
   attribute float aSize;
   attribute vec3 aColor;
@@ -163,22 +131,25 @@ const particleVertexShader = `
     vColor = aColor;
     vAlpha = aAlpha;
     vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-    gl_PointSize = aSize * (260.0 / -mvPosition.z);
+    gl_PointSize = aSize * (300.0 / -mvPosition.z);
     gl_Position = projectionMatrix * mvPosition;
   }
 `;
 
+/* Soft bloom orb — not a hard circle outline */
 const particleFragmentShader = `
   varying vec3 vColor;
   varying float vAlpha;
   void main() {
     vec2 uv = gl_PointCoord - vec2(0.5);
     float dist = length(uv);
-    float core = smoothstep(0.16, 0.0, dist);
-    float glow = smoothstep(0.5, 0.05, dist) * 0.5;
-    float a = clamp(core + glow, 0.0, 1.0) * vAlpha;
-    if (a < 0.008) discard;
-    gl_FragColor = vec4(vColor, a);
+    float core = exp(-dist * dist * 28.0);
+    float halo = exp(-dist * dist * 6.5) * 0.55;
+    float mist = exp(-dist * dist * 2.2) * 0.22;
+    float a = (core + halo + mist) * vAlpha;
+    if (a < 0.01) discard;
+    vec3 col = vColor * (0.75 + core * 0.55);
+    gl_FragColor = vec4(col, a);
   }
 `;
 
@@ -198,7 +169,7 @@ const lineFragmentShader = `
   varying vec3 vColor;
   varying float vAlpha;
   void main() {
-    gl_FragColor = vec4(vColor, vAlpha);
+    gl_FragColor = vec4(vColor, vAlpha * 0.85);
   }
 `;
 
@@ -212,14 +183,18 @@ function pickColor(): THREE.Color {
   return new THREE.Color(PALETTE[0]);
 }
 
-/* ---------------------------------------------------------------- */
-/* Expanding pulse ring (visual only — spawns from the core)         */
-/* ---------------------------------------------------------------- */
-
-function PulseRing({ born, origin, onDone }: { born: number; origin: THREE.Vector3; onDone: () => void }) {
+function PulseRing({
+  born,
+  origin,
+  onDone,
+}: {
+  born: number;
+  origin: THREE.Vector3;
+  onDone: () => void;
+}) {
   const ref = useRef<THREE.Mesh>(null);
   const matRef = useRef<THREE.MeshBasicMaterial>(null);
-  const life = 1.4;
+  const life = 1.8;
   useFrame((state) => {
     const t = (state.clock.elapsedTime - born) / life;
     if (t >= 1) {
@@ -227,36 +202,43 @@ function PulseRing({ born, origin, onDone }: { born: number; origin: THREE.Vecto
       return;
     }
     if (ref.current) {
-      const s = 0.4 + t * 6;
+      const s = 0.35 + t * 5.5;
       ref.current.scale.set(s, s, s);
       ref.current.position.copy(origin);
     }
-    if (matRef.current) matRef.current.opacity = (1 - t) * 0.16;
+    if (matRef.current) matRef.current.opacity = (1 - t) * 0.1;
   });
   return (
     <mesh ref={ref}>
-      <ringGeometry args={[0.85, 1, 48]} />
-      <meshBasicMaterial ref={matRef} color="#FFB199" transparent opacity={0.16} side={THREE.DoubleSide} />
+      <ringGeometry args={[0.92, 1, 64]} />
+      <meshBasicMaterial
+        ref={matRef}
+        color="#FF8F7A"
+        transparent
+        opacity={0.1}
+        side={THREE.DoubleSide}
+        depthWrite={false}
+      />
     </mesh>
   );
 }
-
-/* ---------------------------------------------------------------- */
-/* Core simulation + rendering                                       */
-/* ---------------------------------------------------------------- */
 
 function NetworkScene({
   logoMaskSrc,
   particleCount,
   align,
+  mouseRef,
 }: {
   logoMaskSrc: string;
   particleCount: number;
   align: 'left' | 'right' | 'center';
+  mouseRef: MutableRefObject<{ x: number; y: number; active: boolean }>;
 }) {
-  const { viewport } = useThree();
+  const { viewport, camera } = useThree();
   const logoTargets = useLogoTargets(logoMaskSrc, particleCount);
   const targetQueue = useRef<THREE.Vector3[]>([]);
+  const mouseWorld = useRef(new THREE.Vector3(0, 0, 0));
+  const tmp = useRef(new THREE.Vector3());
 
   useEffect(() => {
     if (logoTargets) targetQueue.current = shuffle(logoTargets);
@@ -268,8 +250,8 @@ function NetworkScene({
     const w = viewport.width;
     const h = viewport.height;
     const ox = align === 'left' ? -w * 0.22 : align === 'right' ? w * 0.22 : 0;
-    originRef.current.set(ox, 0, 0);
-    boundsRef.current = Math.min(w, h) * 0.3;
+    originRef.current.set(ox, h * 0.04, 0);
+    boundsRef.current = Math.min(w, h) * 0.34;
   }, [viewport.width, viewport.height, align]);
 
   const particles = useRef<ParticleData[]>([]);
@@ -277,47 +259,48 @@ function NetworkScene({
   const pulses = useRef<PulseData[]>([]);
   const nextId = useRef(1);
   const spawnTimer = useRef(0);
-  const spawnInterval = useRef(0.03);
+  const spawnInterval = useRef(0.028);
   const pulseTimer = useRef(0);
   const waveTimer = useRef(0);
   const growing = useRef(true);
+  const seeded = useRef(false);
 
   const [waves, setWaves] = useState<{ id: number; born: number }[]>([]);
   const removeWave = useCallback((id: number) => {
     setWaves((prev) => prev.filter((w) => w.id !== id));
   }, []);
 
-  // Seed the single core particle once.
-  const seeded = useRef(false);
-
-  // Geometry buffers for particles
   const positions = useMemo(() => new Float32Array(particleCount * 3), [particleCount]);
   const pColors = useMemo(() => new Float32Array(particleCount * 3), [particleCount]);
   const pSizes = useMemo(() => new Float32Array(particleCount), [particleCount]);
   const pAlphas = useMemo(() => new Float32Array(particleCount), [particleCount]);
   const pointsGeo = useRef<THREE.BufferGeometry>(null);
 
-  // Geometry buffers for connection curves (line segments, CURVE_SEGMENTS per curve)
   const maxLineVerts = MAX_CONNECTIONS * CURVE_SEGMENTS * 2;
   const linePositions = useMemo(() => new Float32Array(maxLineVerts * 3), [maxLineVerts]);
   const lineColors = useMemo(() => new Float32Array(maxLineVerts * 3), [maxLineVerts]);
   const lineAlphas = useMemo(() => new Float32Array(maxLineVerts), [maxLineVerts]);
   const lineGeo = useRef<THREE.BufferGeometry>(null);
 
-  // Geometry buffers for traveling message pulses
   const pulsePositions = useMemo(() => new Float32Array(MAX_PULSES * 3), []);
   const pulseColors = useMemo(() => new Float32Array(MAX_PULSES * 3), []);
   const pulseSizes = useMemo(() => new Float32Array(MAX_PULSES), []);
   const pulseAlphas = useMemo(() => new Float32Array(MAX_PULSES), []);
   const pulseGeo = useRef<THREE.BufferGeometry>(null);
 
-  const findParticle = useCallback((id: number) => particles.current.find((p) => p.id === id), []);
+  const findParticle = useCallback(
+    (id: number) => particles.current.find((p) => p.id === id),
+    []
+  );
 
   const addConnection = useCallback((a: ParticleData, b: ParticleData, born: number) => {
     if (connections.current.length >= MAX_CONNECTIONS) return;
-    const perp = new THREE.Vector3(-(b.position.y - a.position.y), b.position.x - a.position.x, 0)
+    const dx = b.position.x - a.position.x;
+    const dy = b.position.y - a.position.y;
+    const perp = new THREE.Vector3(-dy, dx, 0)
       .normalize()
-      .multiplyScalar((Math.random() - 0.5) * 2.5);
+      .multiplyScalar((Math.random() - 0.5) * 3.2);
+    perp.z = (Math.random() - 0.5) * 0.6;
     connections.current.push({ aId: a.id, bId: b.id, bow: perp, born });
   }, []);
 
@@ -326,46 +309,51 @@ function NetworkScene({
       const list = particles.current;
       if (list.length >= particleCount) return;
 
-      const pool = list.slice(Math.max(0, list.length - 14));
+      const pool = list.slice(Math.max(0, list.length - 16));
       const parent = pool.length ? pool[Math.floor(Math.random() * pool.length)] : list[0];
       if (!parent) return;
 
       const angle = Math.random() * Math.PI * 2;
-      const dist = 0.6 + Math.random() * 1.6;
+      const dist = 0.55 + Math.random() * 1.5;
       const spawnPos = new THREE.Vector3(
         parent.position.x + Math.cos(angle) * dist,
         parent.position.y + Math.sin(angle) * dist,
-        parent.position.z + (Math.random() - 0.5) * 0.8
+        parent.position.z + (Math.random() - 0.5) * 0.9
       );
 
       const rel = spawnPos.clone().sub(originRef.current);
       if (rel.length() > boundsRef.current) {
-        rel.setLength(boundsRef.current * (0.65 + Math.random() * 0.3));
+        rel.setLength(boundsRef.current * (0.62 + Math.random() * 0.32));
         spawnPos.copy(originRef.current).add(rel);
       }
 
       const raw = targetQueue.current.pop();
-      const target = raw ? raw.clone().multiplyScalar(boundsRef.current).add(originRef.current) : null;
+      const target = raw
+        ? raw.clone().multiplyScalar(boundsRef.current).add(originRef.current)
+        : null;
 
-      const isCore = Math.random() < 0.14;
+      const isCore = Math.random() < 0.12;
       const p: ParticleData = {
         id: nextId.current++,
-        position: spawnPos,
+        position: spawnPos.clone(),
+        home: (target ?? spawnPos).clone(),
         target,
         color: pickColor(),
-        size: isCore ? 3.4 + Math.random() * 1.6 : 1 + Math.random() * 2,
+        size: isCore ? 4.2 + Math.random() * 2.2 : 1.6 + Math.random() * 2.8,
         isCore,
         phase: Math.random() * Math.PI * 2,
-        freq: 0.35 + Math.random() * 0.55,
+        freq: 0.28 + Math.random() * 0.5,
         born: elapsed,
       };
       list.push(p);
       addConnection(parent, p, elapsed);
 
-      // occasional extra connection to another nearby particle
-      if (Math.random() < 0.35 && list.length > 3) {
+      if (Math.random() < 0.28 && list.length > 4) {
         const other = list[Math.floor(Math.random() * list.length)];
-        if (other.id !== p.id && other.position.distanceTo(p.position) < boundsRef.current * 0.5) {
+        if (
+          other.id !== p.id &&
+          other.position.distanceTo(p.position) < boundsRef.current * 0.42
+        ) {
           addConnection(other, p, elapsed);
         }
       }
@@ -375,79 +363,115 @@ function NetworkScene({
 
   useFrame((state, dt) => {
     const elapsed = state.clock.elapsedTime;
+    const clampedDt = Math.min(dt, 0.05);
 
-    // --- seed core particle ---
+    // Map normalized mouse (-1..1) into world at z≈0 plane
+    if (mouseRef.current.active) {
+      const v = tmp.current.set(mouseRef.current.x, mouseRef.current.y, 0.5);
+      v.unproject(camera);
+      const dir = v.sub(camera.position).normalize();
+      const dist = -camera.position.z / dir.z;
+      mouseWorld.current.copy(camera.position).add(dir.multiplyScalar(dist));
+    }
+
     if (!seeded.current) {
       seeded.current = true;
+      const corePos = originRef.current.clone();
       particles.current.push({
         id: nextId.current++,
-        position: originRef.current.clone(),
+        position: corePos.clone(),
+        home: corePos.clone(),
         target: null,
         color: new THREE.Color(PALETTE[0]),
-        size: 5,
+        size: 6.5,
         isCore: true,
         phase: 0,
-        freq: 0.5,
+        freq: 0.42,
         born: elapsed,
       });
     }
 
-    // --- growth phase: spawn particles + pulse rings ---
     if (growing.current) {
       if (elapsed > GROWTH_DURATION || particles.current.length >= particleCount) {
         growing.current = false;
       } else {
-        spawnTimer.current += dt;
+        spawnTimer.current += clampedDt;
         if (spawnTimer.current > spawnInterval.current) {
           spawnTimer.current = 0;
-          spawnInterval.current = 0.02 + Math.random() * 0.045;
+          spawnInterval.current = 0.018 + Math.random() * 0.04;
           spawnParticle(elapsed);
         }
-        waveTimer.current += dt;
-        if (waveTimer.current > 0.55) {
+        waveTimer.current += clampedDt;
+        if (waveTimer.current > 0.7) {
           waveTimer.current = 0;
-          setWaves((prev) => (prev.length >= 3 ? prev : [...prev, { id: nextId.current++, born: elapsed }]));
+          setWaves((prev) =>
+            prev.length >= 2 ? prev : [...prev, { id: nextId.current++, born: elapsed }]
+          );
         }
       }
     }
 
-    // --- update particle positions (ease to target + floating jitter) ---
     const list = particles.current;
+    const mouseOn = mouseRef.current.active;
+    const mw = mouseWorld.current;
+
     for (let i = 0; i < list.length; i++) {
       const p = list[i];
       if (p.target) {
-        p.position.lerp(p.target, 0.035);
+        p.home.lerp(p.target, 0.04);
+        if (p.home.distanceTo(p.target) < 0.04) p.target = null;
       }
-      const fx = Math.sin(elapsed * p.freq + p.phase) * 0.12;
-      const fy = Math.cos(elapsed * p.freq * 0.8 + p.phase) * 0.12;
+
+      // Soft drift around home
+      const fx = Math.sin(elapsed * p.freq + p.phase) * 0.16;
+      const fy = Math.cos(elapsed * p.freq * 0.85 + p.phase) * 0.16;
+      const desired = tmp.current.set(p.home.x + fx, p.home.y + fy, p.home.z);
+
+      // Mouse: clear repulsion so motion is obvious
+      if (mouseOn) {
+        const dx = desired.x - mw.x;
+        const dy = desired.y - mw.y;
+        const d = Math.sqrt(dx * dx + dy * dy) + 0.0001;
+        if (d < MOUSE_RADIUS) {
+          const force = (1 - d / MOUSE_RADIUS) ** 1.6;
+          desired.x += (dx / d) * force * 2.8;
+          desired.y += (dy / d) * force * 2.8;
+          desired.z += force * 0.55;
+        }
+      }
+
+      p.position.lerp(desired, 0.18);
+
       const idx = i * 3;
       if (idx + 2 < positions.length) {
-        positions[idx] = p.position.x + fx;
-        positions[idx + 1] = p.position.y + fy;
+        positions[idx] = p.position.x;
+        positions[idx + 1] = p.position.y;
         positions[idx + 2] = p.position.z;
         pColors[idx] = p.color.r;
         pColors[idx + 1] = p.color.g;
         pColors[idx + 2] = p.color.b;
-        pSizes[i] = p.size;
-        const age = Math.min(1, (elapsed - p.born) / 0.6);
-        pAlphas[i] = age * (p.isCore ? 0.95 : 0.6 + Math.random() * 0.15);
+
+        let near = 0;
+        if (mouseOn) {
+          const md = p.position.distanceTo(mw);
+          near = Math.max(0, 1 - md / MOUSE_RADIUS);
+        }
+        pSizes[i] = p.size * (1 + near * 1.4);
+        const age = Math.min(1, (elapsed - p.born) / 0.7);
+        const baseA = p.isCore ? 0.85 : 0.34 + near * 0.55;
+        pAlphas[i] = age * baseA;
       }
     }
-    for (let i = list.length; i < particleCount; i++) {
-      pAlphas[i] = 0;
-    }
+    for (let i = list.length; i < particleCount; i++) pAlphas[i] = 0;
+
     if (pointsGeo.current) {
-      const posAttr = pointsGeo.current.getAttribute('position') as THREE.BufferAttribute;
-      const colAttr = pointsGeo.current.getAttribute('aColor') as THREE.BufferAttribute;
-      const sizeAttr = pointsGeo.current.getAttribute('aSize') as THREE.BufferAttribute;
-      const alphaAttr = pointsGeo.current.getAttribute('aAlpha') as THREE.BufferAttribute;
-      posAttr.needsUpdate = true;
-      colAttr.needsUpdate = true;
-      sizeAttr.needsUpdate = true;
-      alphaAttr.needsUpdate = true;
+      (pointsGeo.current.getAttribute('position') as THREE.BufferAttribute).needsUpdate =
+        true;
+      (pointsGeo.current.getAttribute('aColor') as THREE.BufferAttribute).needsUpdate = true;
+      (pointsGeo.current.getAttribute('aSize') as THREE.BufferAttribute).needsUpdate = true;
+      (pointsGeo.current.getAttribute('aAlpha') as THREE.BufferAttribute).needsUpdate = true;
     }
 
-    // --- update connection curves ---
     const conns = connections.current;
     for (let c = 0; c < MAX_CONNECTIONS; c++) {
       const base = c * CURVE_SEGMENTS * 2 * 3;
@@ -463,10 +487,24 @@ function NetworkScene({
         for (let s = 0; s < CURVE_SEGMENTS * 2; s++) lineAlphas[baseA + s] = 0;
         continue;
       }
-      const mid = a.position.clone().add(b.position).multiplyScalar(0.5).add(conn.bow);
-      const age = Math.min(1, (elapsed - conn.born) / 0.8);
-      const breathe = 0.7 + 0.3 * Math.sin(elapsed * 0.9 + conn.born * 3.1);
-      const alpha = 0.05 + (0.13 * age * breathe);
+
+      // Stronger curve — ribbon feel, not ruler lines
+      const mid = a.position
+        .clone()
+        .add(b.position)
+        .multiplyScalar(0.5)
+        .add(conn.bow);
+      mid.z += Math.sin(elapsed * 0.6 + conn.born) * 0.15;
+
+      const age = Math.min(1, (elapsed - conn.born) / 1.1);
+      let alpha = 0.06 + 0.08 * age;
+
+      if (mouseOn) {
+        const dA = a.position.distanceTo(mw);
+        const dB = b.position.distanceTo(mw);
+        const near = Math.max(0, 1 - Math.min(dA, dB) / MOUSE_RADIUS);
+        alpha += near * 0.42;
+      }
 
       for (let s = 0; s < CURVE_SEGMENTS; s++) {
         const t0 = s / CURVE_SEGMENTS;
@@ -480,33 +518,37 @@ function NetworkScene({
         linePositions[vi + 3] = p1.x;
         linePositions[vi + 4] = p1.y;
         linePositions[vi + 5] = p1.z;
-        lineColors[vi] = a.color.r;
-        lineColors[vi + 1] = a.color.g;
-        lineColors[vi + 2] = a.color.b;
-        lineColors[vi + 3] = b.color.r;
-        lineColors[vi + 4] = b.color.g;
-        lineColors[vi + 5] = b.color.b;
+
+        // Soft gradient along the curve
+        const mix = (t0 + t1) * 0.5;
+        lineColors[vi] = a.color.r * (1 - mix) + b.color.r * mix;
+        lineColors[vi + 1] = a.color.g * (1 - mix) + b.color.g * mix;
+        lineColors[vi + 2] = a.color.b * (1 - mix) + b.color.b * mix;
+        lineColors[vi + 3] = lineColors[vi];
+        lineColors[vi + 4] = lineColors[vi + 1];
+        lineColors[vi + 5] = lineColors[vi + 2];
         lineAlphas[baseA + s * 2] = alpha;
         lineAlphas[baseA + s * 2 + 1] = alpha;
       }
     }
+
     if (lineGeo.current) {
-      const posAttr = lineGeo.current.getAttribute('position') as THREE.BufferAttribute;
-      const colAttr = lineGeo.current.getAttribute('aColor') as THREE.BufferAttribute;
-      const alphaAttr = lineGeo.current.getAttribute('aAlpha') as THREE.BufferAttribute;
-      posAttr.needsUpdate = true;
-      colAttr.needsUpdate = true;
-      alphaAttr.needsUpdate = true;
+      (lineGeo.current.getAttribute('position') as THREE.BufferAttribute).needsUpdate = true;
+      (lineGeo.current.getAttribute('aColor') as THREE.BufferAttribute).needsUpdate = true;
+      (lineGeo.current.getAttribute('aAlpha') as THREE.BufferAttribute).needsUpdate = true;
     }
 
-    // --- traveling message pulses along random connections ---
-    pulseTimer.current += dt;
-    if (pulseTimer.current > 0.35 + Math.random() * 0.4 && conns.length > 0 && pulses.current.length < MAX_PULSES) {
+    pulseTimer.current += clampedDt;
+    if (
+      pulseTimer.current > 0.45 + Math.random() * 0.5 &&
+      conns.length > 0 &&
+      pulses.current.length < MAX_PULSES
+    ) {
       pulseTimer.current = 0;
       pulses.current.push({
         connIndex: Math.floor(Math.random() * Math.min(conns.length, MAX_CONNECTIONS)),
         t: 0,
-        speed: 0.5 + Math.random() * 0.4,
+        speed: 0.35 + Math.random() * 0.35,
       });
     }
     pulses.current = pulses.current.filter((pl) => pl.t < 1);
@@ -517,7 +559,7 @@ function NetworkScene({
         continue;
       }
       const pl = pulses.current[i];
-      pl.t += dt * pl.speed;
+      pl.t += clampedDt * pl.speed;
       const conn = conns[pl.connIndex];
       const a = conn ? findParticle(conn.aId) : null;
       const b = conn ? findParticle(conn.bId) : null;
@@ -530,40 +572,59 @@ function NetworkScene({
       pulsePositions[idx] = pos.x;
       pulsePositions[idx + 1] = pos.y;
       pulsePositions[idx + 2] = pos.z;
-      pulseColors[idx] = a.color.r;
-      pulseColors[idx + 1] = a.color.g;
-      pulseColors[idx + 2] = a.color.b;
-      pulseSizes[i] = 3;
-      pulseAlphas[i] = Math.sin(Math.min(1, pl.t) * Math.PI) * 0.9;
+      pulseColors[idx] = 1;
+      pulseColors[idx + 1] = 0.72;
+      pulseColors[idx + 2] = 0.62;
+      pulseSizes[i] = 2.2 + Math.sin(pl.t * Math.PI) * 2.4;
+      pulseAlphas[i] = Math.sin(Math.min(1, pl.t) * Math.PI) * 0.7;
     }
     if (pulseGeo.current) {
-      const posAttr = pulseGeo.current.getAttribute('position') as THREE.BufferAttribute;
-      const colAttr = pulseGeo.current.getAttribute('aColor') as THREE.BufferAttribute;
-      const sizeAttr = pulseGeo.current.getAttribute('aSize') as THREE.BufferAttribute;
-      const alphaAttr = pulseGeo.current.getAttribute('aAlpha') as THREE.BufferAttribute;
-      posAttr.needsUpdate = true;
-      colAttr.needsUpdate = true;
-      sizeAttr.needsUpdate = true;
-      alphaAttr.needsUpdate = true;
+      (pulseGeo.current.getAttribute('position') as THREE.BufferAttribute).needsUpdate =
+        true;
+      (pulseGeo.current.getAttribute('aColor') as THREE.BufferAttribute).needsUpdate = true;
+      (pulseGeo.current.getAttribute('aSize') as THREE.BufferAttribute).needsUpdate = true;
+      (pulseGeo.current.getAttribute('aAlpha') as THREE.BufferAttribute).needsUpdate = true;
     }
   });
 
   return (
     <>
       {waves.map((w) => (
-        <PulseRing key={w.id} born={w.born} origin={originRef.current} onDone={() => removeWave(w.id)} />
+        <PulseRing
+          key={w.id}
+          born={w.born}
+          origin={originRef.current}
+          onDone={() => removeWave(w.id)}
+        />
       ))}
 
       <points>
         <bufferGeometry ref={pointsGeo}>
-          <bufferAttribute attach="attributes-position" args={[positions, 3]} count={particleCount} />
-          <bufferAttribute attach="attributes-aColor" args={[pColors, 3]} count={particleCount} />
-          <bufferAttribute attach="attributes-aSize" args={[pSizes, 1]} count={particleCount} />
-          <bufferAttribute attach="attributes-aAlpha" args={[pAlphas, 1]} count={particleCount} />
+          <bufferAttribute
+            attach="attributes-position"
+            args={[positions, 3]}
+            count={particleCount}
+          />
+          <bufferAttribute
+            attach="attributes-aColor"
+            args={[pColors, 3]}
+            count={particleCount}
+          />
+          <bufferAttribute
+            attach="attributes-aSize"
+            args={[pSizes, 1]}
+            count={particleCount}
+          />
+          <bufferAttribute
+            attach="attributes-aAlpha"
+            args={[pAlphas, 1]}
+            count={particleCount}
+          />
         </bufferGeometry>
         <shaderMaterial
           transparent
           depthWrite={false}
+          blending={THREE.NormalBlending}
           vertexShader={particleVertexShader}
           fragmentShader={particleFragmentShader}
         />
@@ -571,13 +632,26 @@ function NetworkScene({
 
       <lineSegments>
         <bufferGeometry ref={lineGeo}>
-          <bufferAttribute attach="attributes-position" args={[linePositions, 3]} count={maxLineVerts} />
-          <bufferAttribute attach="attributes-aColor" args={[lineColors, 3]} count={maxLineVerts} />
-          <bufferAttribute attach="attributes-aAlpha" args={[lineAlphas, 1]} count={maxLineVerts} />
+          <bufferAttribute
+            attach="attributes-position"
+            args={[linePositions, 3]}
+            count={maxLineVerts}
+          />
+          <bufferAttribute
+            attach="attributes-aColor"
+            args={[lineColors, 3]}
+            count={maxLineVerts}
+          />
+          <bufferAttribute
+            attach="attributes-aAlpha"
+            args={[lineAlphas, 1]}
+            count={maxLineVerts}
+          />
         </bufferGeometry>
         <shaderMaterial
           transparent
           depthWrite={false}
+          blending={THREE.NormalBlending}
           vertexShader={lineVertexShader}
           fragmentShader={lineFragmentShader}
         />
@@ -585,14 +659,31 @@ function NetworkScene({
 
       <points>
         <bufferGeometry ref={pulseGeo}>
-          <bufferAttribute attach="attributes-position" args={[pulsePositions, 3]} count={MAX_PULSES} />
-          <bufferAttribute attach="attributes-aColor" args={[pulseColors, 3]} count={MAX_PULSES} />
-          <bufferAttribute attach="attributes-aSize" args={[pulseSizes, 1]} count={MAX_PULSES} />
-          <bufferAttribute attach="attributes-aAlpha" args={[pulseAlphas, 1]} count={MAX_PULSES} />
+          <bufferAttribute
+            attach="attributes-position"
+            args={[pulsePositions, 3]}
+            count={MAX_PULSES}
+          />
+          <bufferAttribute
+            attach="attributes-aColor"
+            args={[pulseColors, 3]}
+            count={MAX_PULSES}
+          />
+          <bufferAttribute
+            attach="attributes-aSize"
+            args={[pulseSizes, 1]}
+            count={MAX_PULSES}
+          />
+          <bufferAttribute
+            attach="attributes-aAlpha"
+            args={[pulseAlphas, 1]}
+            count={MAX_PULSES}
+          />
         </bufferGeometry>
         <shaderMaterial
           transparent
           depthWrite={false}
+          blending={THREE.NormalBlending}
           vertexShader={particleVertexShader}
           fragmentShader={particleFragmentShader}
         />
@@ -601,7 +692,7 @@ function NetworkScene({
   );
 }
 
-function quadBezier(a: THREE.Vector3, m: THREE.Vector3, b: THREE.Vector3, t: number): THREE.Vector3 {
+function quadBezier(a: THREE.Vector3, m: THREE.Vector3, b: THREE.Vector3, t: number) {
   const it = 1 - t;
   return new THREE.Vector3(
     it * it * a.x + 2 * it * t * m.x + t * t * b.x,
@@ -610,28 +701,56 @@ function quadBezier(a: THREE.Vector3, m: THREE.Vector3, b: THREE.Vector3, t: num
   );
 }
 
-/* ---------------------------------------------------------------- */
-/* Public component                                                  */
-/* ---------------------------------------------------------------- */
-
 export interface HeroParticleNetworkProps {
-  /** Path to the shape-reference image (never displayed, only sampled). */
   logoMaskSrc?: string;
-  /** Total number of particles the network grows to. */
   particleCount?: number;
-  /** Which side of the Hero the network anchors toward. */
   align?: 'left' | 'right' | 'center';
   className?: string;
 }
 
 export default function HeroParticleNetwork({
   logoMaskSrc = '/tomatok-logo-mask.svg',
-  particleCount = 140,
+  particleCount = 110,
   align = 'center',
   className,
 }: HeroParticleNetworkProps) {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const mouseRef = useRef({ x: 0, y: 0, active: false });
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+
+    const onMove = (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect();
+      const inside =
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom;
+      if (!inside) {
+        mouseRef.current.active = false;
+        return;
+      }
+      mouseRef.current.active = true;
+      mouseRef.current.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      mouseRef.current.y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+    };
+    const onLeave = () => {
+      mouseRef.current.active = false;
+    };
+
+    window.addEventListener('mousemove', onMove, { passive: true });
+    window.addEventListener('blur', onLeave);
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('blur', onLeave);
+    };
+  }, []);
+
   return (
     <div
+      ref={wrapRef}
       className={className}
       aria-hidden="true"
       style={{
@@ -641,16 +760,21 @@ export default function HeroParticleNetwork({
         pointerEvents: 'none',
         overflow: 'hidden',
         background:
-          'radial-gradient(130% 130% at 72% 28%, #FFF6F1 0%, #FCFCFD 55%, #FCFCFD 100%)',
+          'radial-gradient(120% 90% at 50% 20%, #FFF8F5 0%, #FCFCFD 52%, #FCFCFD 100%)',
       }}
     >
       <Canvas
-        gl={{ alpha: true, antialias: true }}
-        dpr={[1, 2]}
-        camera={{ position: [0, 0, 22], fov: 45 }}
+        gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
+        dpr={[1, 1.75]}
+        camera={{ position: [0, 0, 22], fov: 42 }}
         style={{ width: '100%', height: '100%' }}
       >
-        <NetworkScene logoMaskSrc={logoMaskSrc} particleCount={particleCount} align={align} />
+        <NetworkScene
+          logoMaskSrc={logoMaskSrc}
+          particleCount={particleCount}
+          align={align}
+          mouseRef={mouseRef}
+        />
       </Canvas>
     </div>
   );

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import LandingPage from "@/components/landing/LandingPage";
 import { parseLocale } from "@/lib/locale";
 import { getNotices, localizedTitle, noticeHasLocale } from "@/lib/notices";
@@ -22,5 +23,9 @@ export default async function HomePage({
     category: n.category,
   }));
 
-  return <LandingPage news={news} locale={locale} />;
+  return (
+    <Suspense fallback={null}>
+      <LandingPage news={news} locale={locale} />
+    </Suspense>
+  );
 }

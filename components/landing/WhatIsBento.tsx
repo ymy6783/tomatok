@@ -3,14 +3,21 @@
 import type { Locale } from '@/lib/locale';
 
 const ITEMS = [
-  { id: 'translate', ko: '자동 번역', en: 'Automatic Translation', subKo: '120+ Languages', subEn: '120+ Languages', wide: true, soon: false },
-  { id: 'ai', ko: 'AI 대화', en: 'AI Conversation', subKo: '요약 · 추천 답장', subEn: 'Summaries & smart replies', wide: false, soon: false },
-  { id: 'voice', ko: '음성 번역', en: 'Voice Translation', subKo: '말할 때도 통역', subEn: 'Live voice interpreting', wide: false, soon: false },
-  { id: 'video', ko: '화상 통화', en: 'Video Call', subKo: '얼굴 보며 연결', subEn: 'Face-to-face, any language', wide: false, soon: false },
-  { id: 'wallet', ko: 'Wallet', en: 'Wallet', subKo: '포인트 · TOTT', subEn: 'Points & TOTT', wide: false, soon: false },
-  { id: 'reward', ko: 'Reward', en: 'Reward', subKo: '출석 · 초대 · 미션', subEn: 'Check-in · invite · missions', wide: false, soon: false },
-  { id: 'community', ko: 'Community', en: 'Community', subKo: '글로벌 오픈채팅', subEn: 'Global open chats', wide: false, soon: false },
-  { id: 'nft', ko: 'NFT Membership', en: 'NFT Membership', subKo: '준비중', subEn: 'Coming soon', wide: false, soon: true },
+  { id: 'translate', ko: '자동 번역', en: 'Automatic Translation', subKo: '120+ Languages', subEn: '120+ Languages', wide: true },
+  { id: 'ai', ko: 'AI 대화', en: 'AI Conversation', subKo: '요약 · 추천 답장', subEn: 'Summaries & smart replies', wide: false },
+  { id: 'voice', ko: '음성 번역', en: 'Voice Translation', subKo: '말할 때도 통역', subEn: 'Live voice interpreting', wide: false },
+  {
+    id: 'video',
+    ko: '화상 통화',
+    en: 'Video Call',
+    subKo: '통화 중 실시간 자동 번역',
+    subEn: 'Live auto-translate on video calls',
+    wide: false,
+  },
+  { id: 'wallet', ko: 'Wallet', en: 'Wallet', subKo: '포인트 · TOTT', subEn: 'Points & TOTT', wide: false },
+  { id: 'reward', ko: 'Reward', en: 'Reward', subKo: '출석 · 초대 · 미션', subEn: 'Check-in · invite · missions', wide: false },
+  { id: 'community', ko: 'Community', en: 'Community', subKo: '글로벌 오픈채팅', subEn: 'Global open chats', wide: false },
+  { id: 'nft', ko: 'NFT', en: 'NFT', subKo: '디지털 자산', subEn: 'Digital assets', wide: false },
 ] as const;
 
 export default function WhatIsBento({ locale }: { locale: Locale }) {
@@ -20,19 +27,9 @@ export default function WhatIsBento({ locale }: { locale: Locale }) {
       <div className="section-head wrap">
         <span className="eyebrow">What is TOMATOK</span>
         <h2>
-          {en ? (
-            <>
-              One App.
-              <br />
-              Unlimited Conversations.
-            </>
-          ) : (
-            <>
-              One App.
-              <br />
-              Unlimited Conversations.
-            </>
-          )}
+          One App.
+          <br />
+          Unlimited Conversations.
         </h2>
         <p>
           {en
@@ -44,28 +41,17 @@ export default function WhatIsBento({ locale }: { locale: Locale }) {
         {ITEMS.map((item) => (
           <article
             key={item.id}
-            className={`bento-card bento-card--${item.id}${item.wide ? ' is-wide' : ''}${item.soon ? ' is-soon' : ''}`}
+            className={`bento-card bento-card--${item.id}${item.wide ? ' is-wide' : ''}`}
           >
-            {item.soon ? <span className="bento-soon">Coming soon</span> : null}
             <h3>{en ? item.en : item.ko}</h3>
             <p>{en ? item.subEn : item.subKo}</p>
           </article>
         ))}
         <article className="bento-card bento-card--hero is-wide">
           <h3>
-            {en ? (
-              <>
-                One App.
-                <br />
-                Unlimited Conversations.
-              </>
-            ) : (
-              <>
-                One App.
-                <br />
-                Unlimited Conversations.
-              </>
-            )}
+            One App.
+            <br />
+            Unlimited Conversations.
           </h3>
           <p>
             {en

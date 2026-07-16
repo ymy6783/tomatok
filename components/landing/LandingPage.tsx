@@ -9,6 +9,7 @@ import FeatureExperience from "@/components/landing/FeatureExperience";
 import FutureTimeline from "@/components/landing/FutureTimeline";
 import HeroLanguageBubbles from "@/components/landing/HeroLanguageBubbles";
 import LandingLocaleSync from "@/components/landing/LandingLocaleSync";
+import ProductExperienceStack from "@/components/landing/ProductExperienceStack";
 import UseCasesGrid from "@/components/landing/UseCasesGrid";
 import WhatIsBento from "@/components/landing/WhatIsBento";
 import WhyTomatok from "@/components/landing/WhyTomatok";
@@ -27,45 +28,12 @@ export type LandingNewsItem = {
 const MARKERS = [
   "<!--PLAN_STORY-->",
   "<!--PLAN_BENTO-->",
+  "<!--PLAN_EXPERIENCE-->",
   "<!--PLAN_WHY-->",
   "<!--PLAN_FEATURES-->",
   "<!--PLAN_USECASES-->",
   "<!--PLAN_FUTURE-->",
 ] as const;
-
-function renderExpFeatures(raw?: string) {
-  if (!raw) return "";
-  return raw
-    .split("|")
-    .map((f) => `<li>${escapeHtml(f.trim())}</li>`)
-    .join("");
-}
-
-function buildExpCaption(el: HTMLElement) {
-  const features = renderExpFeatures(el.dataset.features);
-  return `
-    <div class="exp-num">${escapeHtml(el.dataset.num || "")}</div>
-    <p class="exp-journey">${escapeHtml(el.dataset.journey || "")}</p>
-    <h3>${escapeHtml(el.dataset.headline || "")}</h3>
-    <p>${escapeHtml(el.dataset.desc || "")}</p>
-    ${features ? `<ul class="exp-features">${features}</ul>` : ""}`;
-}
-
-function applyExpPanel(el: HTMLElement) {
-  const journeyEl = document.getElementById("expJourney");
-  const headlineEl = document.getElementById("expHeadline");
-  const descEl = document.getElementById("expDesc");
-  const numEl = document.getElementById("expNum");
-  const featuresEl = document.getElementById("expFeatures");
-
-  if (numEl) numEl.textContent = el.dataset.num || "";
-  if (journeyEl) journeyEl.textContent = el.dataset.journey || "";
-  if (headlineEl) headlineEl.textContent = el.dataset.headline || "";
-  if (descEl) descEl.textContent = el.dataset.desc || "";
-  if (featuresEl) {
-    featuresEl.innerHTML = renderExpFeatures(el.dataset.features);
-  }
-}
 
 function escapeHtml(s: string) {
   return s
@@ -157,11 +125,12 @@ export default function LandingPage({
     return {
       beforeStory: parts[0],
       betweenStoryBento: parts[1],
-      betweenBentoWhy: parts[2],
-      betweenWhyFeatures: parts[3],
-      betweenFeaturesUse: parts[4],
-      betweenUseFuture: parts[5],
-      afterFuture: parts[6],
+      betweenBentoExp: parts[2],
+      betweenExpWhy: parts[3],
+      betweenWhyFeatures: parts[4],
+      betweenFeaturesUse: parts[5],
+      betweenUseFuture: parts[6],
+      afterFuture: parts[7],
     };
   }, [html]);
 
@@ -198,17 +167,6 @@ export default function LandingPage({
     };
     mobileLinks.forEach((a) => a.addEventListener("click", closeMobile));
 
-    document.querySelectorAll(".exp-item").forEach((item) => {
-      if ((item as HTMLElement).dataset.hasCaption === "true") return;
-      const el = item as HTMLElement;
-      if (!el.dataset.headline) return;
-      const cap = document.createElement("div");
-      cap.className = "exp-item-caption";
-      cap.innerHTML = buildExpCaption(el);
-      el.insertBefore(cap, el.firstChild);
-      el.dataset.hasCaption = "true";
-    });
-
     const onFaqClick = (e: Event) => {
       const q = (e.target as HTMLElement).closest(".faq-q");
       if (!q) return;
@@ -220,25 +178,6 @@ export default function LandingPage({
       item.classList.toggle("open");
     };
     document.querySelector(".faq-list")?.addEventListener("click", onFaqClick);
-
-    const items = document.querySelectorAll(".exp-item");
-    const dots = document.querySelectorAll(".exp-dots span");
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const target = entry.target as HTMLElement;
-          const idx = [...items].indexOf(target);
-          items.forEach((item) => item.classList.remove("is-active"));
-          target.classList.add("is-active");
-          applyExpPanel(target);
-          dots.forEach((d) => d.classList.remove("active"));
-          if (dots[idx]) dots[idx].classList.add("active");
-        });
-      },
-      { root: null, threshold: 0.55 }
-    );
-    items.forEach((item) => io.observe(item));
 
     document.querySelectorAll("[onclick]").forEach((el) => {
       el.removeAttribute("onclick");
@@ -252,7 +191,6 @@ export default function LandingPage({
       document
         .querySelector(".faq-list")
         ?.removeEventListener("click", onFaqClick);
-      io.disconnect();
     };
   }, [html]);
 
@@ -275,9 +213,15 @@ export default function LandingPage({
               />
             ) : null}
             <WhatIsBento locale={locale} />
-            {chunks.betweenBentoWhy ? (
+            {chunks.betweenBentoExp ? (
               <div
-                dangerouslySetInnerHTML={{ __html: chunks.betweenBentoWhy }}
+                dangerouslySetInnerHTML={{ __html: chunks.betweenBentoExp }}
+              />
+            ) : null}
+            <ProductExperienceStack locale={locale} />
+            {chunks.betweenExpWhy ? (
+              <div
+                dangerouslySetInnerHTML={{ __html: chunks.betweenExpWhy }}
               />
             ) : null}
             <WhyTomatok locale={locale} />

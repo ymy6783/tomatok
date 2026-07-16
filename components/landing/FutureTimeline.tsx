@@ -3,12 +3,30 @@
 import type { Locale } from '@/lib/locale';
 
 const ITEMS = [
-  { id: 'nft', ko: 'NFT', en: 'NFT', note: 'Membership' },
-  { id: 'ai', ko: 'AI', en: 'AI', note: 'Assistant+' },
-  { id: 'avatar', ko: 'Avatar', en: 'Avatar', note: 'Identity' },
-  { id: 'community', ko: 'Global Community', en: 'Global Community', note: 'Scale' },
-  { id: 'market', ko: 'Marketplace', en: 'Marketplace', note: 'Commerce' },
-  { id: 'smart', ko: 'Smart Translation', en: 'Smart Translation', note: 'Next gen' },
+  {
+    id: 'video-xlate',
+    ko: '화상 통화 실시간 번역',
+    en: 'Live Video Translation',
+    noteKo: '통화하면서 자동으로 번역되는 경험',
+    noteEn: 'Auto-translate while you talk on video',
+  },
+  { id: 'ai', ko: 'AI Assistant+', en: 'AI Assistant+', noteKo: '더 깊은 대화 보조', noteEn: 'Deeper conversation help' },
+  { id: 'avatar', ko: 'Avatar', en: 'Avatar', noteKo: 'Identity', noteEn: 'Identity' },
+  {
+    id: 'community',
+    ko: 'Global Community',
+    en: 'Global Community',
+    noteKo: 'Scale',
+    noteEn: 'Scale',
+  },
+  { id: 'market', ko: 'Marketplace', en: 'Marketplace', noteKo: 'Commerce', noteEn: 'Commerce' },
+  {
+    id: 'smart',
+    ko: 'Smart Translation',
+    en: 'Smart Translation',
+    noteKo: 'Next gen',
+    noteEn: 'Next gen',
+  },
 ] as const;
 
 export default function FutureTimeline({ locale }: { locale: Locale }) {
@@ -17,11 +35,11 @@ export default function FutureTimeline({ locale }: { locale: Locale }) {
     <section className="future" id="future">
       <div className="section-head wrap">
         <span className="eyebrow">Future</span>
-        <h2>Coming Soon</h2>
+        <h2>{en ? 'What’s next' : '다음으로'}</h2>
         <p>
           {en
-            ? 'The next chapter of TOMATOK—still product-first, never neon hype.'
-            : '토마톡의 다음 이야기. 제품이 먼저, 과한 과장은 없습니다.'}
+            ? 'Next up: live translation during video calls—product first, no neon hype.'
+            : '다음은 화상통화 중 실시간 자동 번역. 제품이 먼저, 과한 과장은 없습니다.'}
         </p>
       </div>
       <ol className="future-timeline wrap">
@@ -31,9 +49,8 @@ export default function FutureTimeline({ locale }: { locale: Locale }) {
             <span className="future-num">{String(i + 1).padStart(2, '0')}</span>
             <div>
               <h4>{en ? item.en : item.ko}</h4>
-              <p>{item.note}</p>
+              <p>{en ? item.noteEn : item.noteKo}</p>
             </div>
-            <span className="badge-soon">Coming soon</span>
           </li>
         ))}
       </ol>
